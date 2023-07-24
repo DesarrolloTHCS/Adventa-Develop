@@ -9,8 +9,10 @@ class Scripts
     use App;
     static function scripts()
     {
+        
         $path = self::PATH_LIBRARIES;
         $path_dist = self::PATH_DIST;
+        $path_assets = self::PATH_ASSETS;
         $html = <<<HTML
         <!-- jQuery -->
 <script src="{$path}jquery/jquery.min.js"></script>
@@ -40,6 +42,8 @@ class Scripts
 <script src="{$path}chart.js/Chart.min.js"></script>
 <!-- SwetAlert2 -->
 <script src="{$path}sweetalert2/sweetalert2.min.js"></script>
+<script src="{$path_assets}js/app.js"></script>
+
 
 HTML;
         echo $html;

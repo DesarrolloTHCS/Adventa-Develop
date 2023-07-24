@@ -15,17 +15,19 @@ class Layout
     static public function layoutHeader()
     {
         Head::head('TuHogarConSentido');
-        echo '<body';
+        echo '<body class="hold-transition sidebar-mini">';
+        echo '<div class="wrapper">';
         NavBar::navBar();
-        AsideBar::asideBar(); 
-        
+        AsideBar::asideBar();
+        echo '<div class="content-wrapper">';       
+    
     }
-
+    
     static public function layoutFooter(){
-        
+        echo '</div>';    
         Footer::footer();
         Scripts::scripts();
-        echo '</body></html>';
+        echo '</div></body></html>';
     }
 }
 ?>

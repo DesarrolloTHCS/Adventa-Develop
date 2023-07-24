@@ -42,10 +42,10 @@ Trait App{
 
     /**
      * Author: Alfredo Segura <pixxo2010@gmail.com>
-     * RUTA DONDE DE LA VISTA PARA MOSTRAR LOS PRODUCTOS
+     * RUTA DONDE DE ASSETS
      */
     
-    public const PATH_PRODUCTS_DETAILS='/shop_thcs_nativo/views/products/ProductDetails.php';
+    public const PATH_ASSETS='/Adventa-Develop/views/assets/';
 
     //Enlace página facebook
     public const FACEBOOK='https://www.facebook.com/tuhogarconsentidomx/';

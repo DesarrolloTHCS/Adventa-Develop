@@ -115,3 +115,11 @@ function numberFormat(number, decimals, decimalSeparator, thousandsSeparator) {
   let newNumber = integerPart + decimalSeparator + decimalPart;
   return newNumber;
 }
+
+/**
+ * 
+ */
+$(document).ready(function() {
+  $('#summernote').summernote();
+});
+
