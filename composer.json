@@ -8,7 +8,9 @@
         "views/",
         "views/auth/",
         "views/layout/",
-        "views/components/"
+        "views/components/",
+        "views/products/"
+
         
       ],
       "psr-4": {
@@ -19,7 +21,8 @@
         "Views\\": "views/",
         "Views\\Auth\\": "views/auth/",
         "Views\\Layout\\": "views/layout/",
-        "Views\\Components\\": "views/components/"        
+        "Views\\Components\\": "views/components/",
+        "Views\\Products\\": "views/products/"        
       }
     },
     "require": {

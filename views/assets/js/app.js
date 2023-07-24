@@ -2,7 +2,7 @@
  * author:Alfredo Segura <pixxo2010@gmail.com>
  * URL: Establece la URL base del proyecto
  */
-const URL = getURL();
+const URL_PROYECT = getURL();
 
 /**
  * author:Alfredo Segura <pixxo2010@gmail.com>
@@ -26,7 +26,7 @@ const URL_PRODUCTS_DETAILS =
  */
 
 function getURL() {
-  let baseURLPath = "shop_thcs_nativo/";
+  let baseURLPath = "Adventa-Develop/";
   var loc = window.location;
   var baseURL =
     loc.protocol + "//" + loc.hostname + (loc.port ? ":" + loc.port : "") + "/";
@@ -120,6 +120,11 @@ function numberFormat(number, decimals, decimalSeparator, thousandsSeparator) {
  * 
  */
 $(document).ready(function() {
-  $('#summernote').summernote();
+  $('#summernote').summernote({
+    height: 150,   //set editable area's height
+    codemirror: { // codemirror options
+    theme: 'monokai'
+    }
+  });
 });
 

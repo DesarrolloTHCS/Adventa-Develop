@@ -14,7 +14,7 @@ class Layout
 
     static public function layoutHeader()
     {
-        Head::head('TuHogarConSentido');
+        Head::head('Sistema de inventario');
         echo '<body class="hold-transition sidebar-mini">';
         echo '<div class="wrapper">';
         NavBar::navBar();

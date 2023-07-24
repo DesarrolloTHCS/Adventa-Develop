@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    var url_string = URL_PROYECT+"app/api/products"
         tabla=$('#products_table').dataTable({
             "aProcessing": true,
             "aServerSide": true,
@@ -8,7 +9,7 @@ $(document).ready(function () {
             colReorder: true,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],    
             "ajax":{
-                url: '../../controller/tickets.php',
+                url: url_string,
                 type : "post",
                 dataType : "json",	
                 data:{ opcion: 'listadoTicket'},						
@@ -45,6 +46,9 @@ $(document).ready(function () {
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
             }     
-        }).DataTable().buttons().container().appendTo('#ticket_table_wrapper .col-md-6:eq(0)');
+        }).DataTable()
+        .buttons()
+        .container()
+        .appendTo('#ticket_table_wrapper .col-md-6:eq(0)');
 }
 );
