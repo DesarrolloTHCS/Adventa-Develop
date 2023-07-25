@@ -9,7 +9,7 @@
 use App\Models\GetModel;
 use App\Models\PutModel;
 use App\Traits\Validate;
-require_once ($_SERVER['DOCUMENT_ROOT'].'/shop_thcs_nativo/vendor/autoload.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/Adventa-Develop/vendor/autoload.php');
 
 
 session_start();

@@ -6,7 +6,7 @@
 *date: 15/06/2023
 */
 use App\Models\GetModel;
-require_once ($_SERVER['DOCUMENT_ROOT'].'/shop_thcs_nativo/vendor/autoload.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/Adventa-Develop/vendor/autoload.php');
 session_start();
 
 if (isset($_SESSION['id_user'])) {

@@ -11,6 +11,7 @@ return array(
     'App\\Controllers\\GetController' => $baseDir . '/app/controllers/GetController.php',
     'App\\Controllers\\PostController' => $baseDir . '/app/controllers/PostController.php',
     'App\\Controllers\\PutController' => $baseDir . '/app/controllers/PutController.php',
+    'App\\Controllers\\Sinube\\SinubeController' => $baseDir . '/app/controllers/sinube/SinubeController.php',
     'App\\Controllers\\Users\\UsersController' => $baseDir . '/app/controllers/users/UsersController.php',
     'App\\Models\\Connection' => $baseDir . '/app/models/Connection.php',
     'App\\Models\\DeleteModel' => $baseDir . '/app/models/DeleteModel.php',

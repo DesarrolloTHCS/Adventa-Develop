@@ -20,6 +20,9 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
             'App\\Traits\\' => 11,
             'App\\Models\\' => 11,
             'App\\Controllers\\Users\\' => 22,
+            'App\\Controllers\\Sinube\\' => 23,
+            'App\\Controllers\\Auth\\' => 21,
+            'App\\Controllers\\' => 16,
             'App\\' => 4,
         ),
     );
@@ -57,6 +60,18 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
         array (
             0 => __DIR__ . '/../..' . '/app/controllers/users',
         ),
+        'App\\Controllers\\Sinube\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controllers/sinube',
+        ),
+        'App\\Controllers\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controllers/auth',
+        ),
+        'App\\Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controllers',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -69,6 +84,7 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
         'App\\Controllers\\GetController' => __DIR__ . '/../..' . '/app/controllers/GetController.php',
         'App\\Controllers\\PostController' => __DIR__ . '/../..' . '/app/controllers/PostController.php',
         'App\\Controllers\\PutController' => __DIR__ . '/../..' . '/app/controllers/PutController.php',
+        'App\\Controllers\\Sinube\\SinubeController' => __DIR__ . '/../..' . '/app/controllers/sinube/SinubeController.php',
         'App\\Controllers\\Users\\UsersController' => __DIR__ . '/../..' . '/app/controllers/users/UsersController.php',
         'App\\Models\\Connection' => __DIR__ . '/../..' . '/app/models/Connection.php',
         'App\\Models\\DeleteModel' => __DIR__ . '/../..' . '/app/models/DeleteModel.php',

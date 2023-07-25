@@ -7,7 +7,7 @@
 */
 use App\Models\GetModel;
 use App\Traits\Validate;
-require_once ($_SERVER['DOCUMENT_ROOT'].'/shop_thcs_nativo/vendor/autoload.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/Adventa-Develop/vendor/autoload.php');
 
     // Lee el contenido de la solicitud JSON
     $requestPayload = file_get_contents('php://input');

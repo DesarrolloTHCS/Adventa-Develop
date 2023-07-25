@@ -14,5 +14,8 @@ return array(
     'App\\Traits\\' => array($baseDir . '/app/traits'),
     'App\\Models\\' => array($baseDir . '/app/models'),
     'App\\Controllers\\Users\\' => array($baseDir . '/app/controllers/users'),
+    'App\\Controllers\\Sinube\\' => array($baseDir . '/app/controllers/sinube'),
+    'App\\Controllers\\Auth\\' => array($baseDir . '/app/controllers/auth'),
+    'App\\Controllers\\' => array($baseDir . '/app/controllers'),
     'App\\' => array($baseDir . '/app'),
 );
