@@ -4,7 +4,7 @@ namespace App\Controllers\Sinube;
 class SinubeController{
 
 
-static function consultar($store="BODEGUITA", $price_list="Ecommerce", $cursor=null){
+static function consultar($store="BODEGUITA", $price_list="Adventa", $cursor=null){
 
 
     $empresa    = 'DOD021211S63';
@@ -27,7 +27,7 @@ static function consultar($store="BODEGUITA", $price_list="Ecommerce", $cursor=n
    $temporal   = explode('¬', $resultado);
    $linea_re   = explode('|', $temporal[0]);
    $cursor     = ($linea_re[1] == '&NullSiNube;') ? null : $linea_re[1];
-   print_r($cursor);
+   print_r($temporal);
     /* self::processingSinube($resultado); */
 
 
