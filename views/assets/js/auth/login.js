@@ -3,7 +3,7 @@ let input_email=document.getElementById("singin-email");
 let input_password=document.getElementById("singin-password");
 let invalid_feedback=document.querySelectorAll(".valid-register");
 let alert_login=document.querySelector(".alert-login");
-const BASEURL = getURL();
+const BASEURL = URL_PROYECT;
 try {
         form_login.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -20,6 +20,7 @@ try {
     fetch(`${BASEURL}app/api/api-login.php`, {
       method: "POST",
       body: new FormData(form),
+      header:{"Content-Type": "application/json"}
     })
       .then(parseResponse)
       .then((response) => {

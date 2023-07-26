@@ -2,136 +2,118 @@
 
 namespace Views\Auth;
 
+use App\Traits\App;
+require_once '../../vendor/autoload.php';
 class Login
 {
-    static function login()
-    {
-        $html = <<<HTML
-    <!-- Sign in / Register Modal -->
-    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="icon-close"></i></span>
-                    </button>
 
-                    <div class="form-box">
-                        <div class="form-tab">
-                            <ul class="nav nav-pills nav-fill" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Iniciar sesión</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Registrarte</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="tab-content-5">
-                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                    <form id="form-login" class="needs-validation" novalidate> 
-                                    <div class="text-center alert alert-danger alert-login" style="display:none;" role="alert">Usuario y/o contraseña incorrectas 
-                                    </div>
-                                        <div class="form-group">
-                                            <label for="singin-email">Usuario o correo electrónico</label>
-                                            <input type="text" class="form-control" id="singin-email" name="singin-email" required>
-                                            <div  class="valid-register">Correo valido</div>
-                                        </div><!-- End .form-group -->
+  use App;
 
-                                        <div class="form-group">
-                                            <label for="singin-password">Contraseña</label>
-                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
-                                            <div  class="valid-register">Ingrese una contraseña</div>
-                                        </div><!-- End .form-group -->
+  static function login()
+  {
 
-                                        <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>Iniciar sesión</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
+    $path=self::PATH_LIBRARIES;
+    $path_dist=self::PATH_DIST;
+    $path_assets=self::PATH_ASSETS;
 
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="signin-remember">
-                                                <label class="custom-control-label" for="signin-remember">Recordarme</label>
-                                            </div><!-- End .custom-checkbox -->
+    $html = <<<HTML
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema-Inventario-DIODI</title>
 
-                                            <a href="#" class="forgot-link">Olvide mi contraseña?</a>
-                                        </div><!-- End .form-footer -->
-                                    </form>
-                                    <div class="form-choice">
-                                        <p class="text-center">O inicia sesión con</p>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-g">
-                                                    <i class="icon-google"></i>
-                                                    Iniciar sesión con Google
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-f">
-                                                    <i class="icon-facebook-f"></i>
-                                                    Iniciar sesión con Facebook
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .form-choice -->
-                                </div><!-- .End .tab-pane -->
-                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                    <form id="form-register" class="needs-validation">
-                                        <input type="hidden" name="type-register" value="register-express">
-                                        <div class="form-group">
-                                            <label for="register-email">Tu correo electrónico *</label>
-                                            <input type="email" class="form-control" id="register_email" name="register_email">
-                                            <div  class="valid-register"></div>
-                                        </div><!-- End .form-group -->
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{$path}fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{$path}icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{$path_dist}css/adminlte.min.css">
+</head>
+    <body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><b>DIODI</b><br>PROYECTO JENNY</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Ingresa tusa datos para iniciar sesión</p>
 
-                                        <div class="form-group">
-                                            <label for="register-password">Nueva contraseña *</label>
-                                            <input type="password" class="form-control" id="register_password" name="register_password" minlength="8" maxlength="16" >
-                                            <small>   <ul>
-                                                <li>8-16 caracteres</li>
-                                                <li>Una letra mayuscula</li>
-                                                <li>Un caracter "/*\-_$!"</li>
-                                            </ul></small>
-                                            <div  class="valid-register"></div>
-                                        </div><!-- End .form-group -->
+      <form id="form-login">
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Correo electrónico" id="singin-email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Contraseña" id="singin-password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Recordarme
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
 
-                                        <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>Registrarte</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
-                                            </form>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="register_policy" name="register_policy">
-                                                <label class="custom-control-label" for="register_policy">Acepto las <a href="#">politicas de privacidad</a> *</label>
-                                            </div><!-- End .custom-checkbox -->
-                                        </div><!-- End .form-footer -->
-                                    <div class="form-choice">
-                                        <p class="text-center">O registrarme con</p>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-g">
-                                                    <i class="icon-google"></i>
-                                                    Registrarme con Google
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login  btn-f">
-                                                    <i class="icon-facebook-f"></i>
-                                                    Registrarme con Facebook
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .form-choice -->
-                                </div><!-- .End .tab-pane -->
-                            </div><!-- End .tab-content -->
-                        </div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .modal-body -->
-            </div><!-- End .modal-content -->
-        </div><!-- End .modal-dialog -->
-    </div><!-- End .modal -->
+     <!--  <div class="social-auth-links text-center mb-3">
+        <p>- O -</p>
+        <a href="#" class="btn btn-block btn-primary">
+          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+        </a>
+        <a href="#" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+        </a>
+      </div> -->
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+        <a href="forgot-password.html">Olvide mi contraseña</a>
+      </p>
+      <p class="mb-0">
+        <a href="register.html" class="text-center">Registrarme</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{$path}jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="{$path}bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="{$path_dist}js/adminlte.min.js"></script>
+<script src="{$path_dist}js/adminlte.min.js"></script>
+<script src="{$path_dist}js/adminlte.min.js"></script>
+<script src="{$path_assets}app.js"></script>
+<script src="{$path_assets}js/auth/login.js"></script>
+</body>
 HTML;
-        echo $html;
-    }
+    echo $html;
+  }
 }
+
+Login::login();

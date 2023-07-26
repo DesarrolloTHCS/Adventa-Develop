@@ -11,7 +11,7 @@ header("Access-Control-Allow-Headers: Origins, X-Request-With, Content-Type, Acc
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("content-type:application/json; charset=utf-8");
 
-header('location: views/index');
+header('location: views/auth/Login');
 exit();
 
 /* $index=new RouterController();

@@ -4,18 +4,28 @@ namespace App\Controllers\Sinube;
 class SinubeController{
 
 
-static function consultar($store="BODEGUITA", $price_list="Adventa", $cursor=null){
+static function consultar($store="Capital Sapi", $price_list="Adventa", $cursor=null){
 
 
+    /* $empresa    = 'DOD021211S63';
+    $usuario    = 'contabilidad.diodi10@gmail.com';
+    $password   = 'KEPF2R3E';
+    $cursor     = ($cursor == null) ? '' : " CURSOR {$cursor}"; */
+    /* $consulta   = "SELECT P.descripcion, L.empresa, L.existencia, L.producto, L.sucursal, P.activo, L.almacen, PP.precio, PP.precioMinimo FROM DbProducto AS P INNER JOIN DbInvProductoLote AS L ON L.producto = P.producto AND L.empresa = P.empresa INNER JOIN DbProductoPrecio AS PP ON PP.producto = P.producto AND PP.empresa = P.empresa WHERE PP.listaPrecios = '".$price_list."' AND P.empresa = 'DOD021211S63' AND P.activo = true AND L.almacen= '".$store."' AND PP.listaPrecios = '".$price_list."'{$cursor}"; */
     $empresa    = 'DOD021211S63';
     $usuario    = 'contabilidad.diodi10@gmail.com';
     $password   = 'KEPF2R3E';
     $cursor     = ($cursor == null) ? '' : " CURSOR {$cursor}";
-    $consulta   = "SELECT P.descripcion, L.empresa, L.existencia, L.producto, L.sucursal, P.activo, L.almacen, PP.precio, PP.precioMinimo FROM DbProducto AS P INNER JOIN DbInvProductoLote AS L ON L.producto = P.producto AND L.empresa = P.empresa INNER JOIN DbProductoPrecio AS PP ON PP.producto = P.producto AND PP.empresa = P.empresa WHERE PP.listaPrecios = '".$price_list."' AND P.empresa = 'DOD021211S63' AND P.activo = true AND L.almacen= '".$store."' AND PP.listaPrecios = '".$price_list."'{$cursor}";
+    $consulta   = "SELECT P.descripcion, L.empresa, L.existencia, L.producto, L.sucursal, P.activo, L.almacen, PP.precio, PP.precioMinimo FROM DbProducto AS P INNER JOIN DbInvProductoLote AS L ON L.producto = P.producto AND L.empresa = P.empresa INNER JOIN DbProductoPrecio AS PP ON PP.producto = P.producto AND PP.empresa = P.empresa WHERE PP.listaPrecios = '".$price_list."' AND P.empresa = 'DOD021211S63' AND P.activo = true AND L.almacen= '".$store."'";
+    /* $consulta   = "SELECT  * FROM DbProducto AS P INNER JOIN DbInvProductoLote AS L ON L.producto = P.producto AND L.empresa = P.empresa INNER JOIN DbProductoPrecio AS PP ON PP.producto = P.producto AND PP.empresa = P.empresa WHERE PP.listaPrecios = '".$price_list."' AND P.empresa = 'THS19060348A' AND P.activo = true AND L.almacen= '".$store."' AND PP.listaPrecios = '".$price_list."'{$cursor}"; */
+
         //echo "<br>Realizando la consulta {$consulta}";
+
     $urlf       = "http://getpost.si-nube.appspot.com/getpost";   
+
         //$urlf       = "http://getpost.facturanube.appspot.com/getpost";   
         //Pagina DIODI
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $urlf);
     curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -23,12 +33,11 @@ static function consultar($store="BODEGUITA", $price_list="Adventa", $cursor=nul
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $resultado = curl_exec ($ch);
     curl_close ($ch);
-   /*  return $resultado; */
-   $temporal   = explode('¬', $resultado);
-   $linea_re   = explode('|', $temporal[0]);
-   $cursor     = ($linea_re[1] == '&NullSiNube;') ? null : $linea_re[1];
-   print_r($temporal);
-    /* self::processingSinube($resultado); */
+    $temporal   = explode('¬', $resultado);
+    $linea_re   = explode('|', $temporal[0]);
+    print_r($resultado);
+    
+    
 
 
 }
@@ -43,14 +52,8 @@ do{
     $temporal   = explode('¬', $resultado);
     $linea_re   = explode('|', $temporal[0]);
     $cursor     = ($linea_re[1] == '&NullSiNube;') ? null : $linea_re[1];
-    $incremetn = 0;
     foreach($temporal as $li){
-        if($incremetn==1){
-            break;
-        }
-        $lineas[] = $li;
-        $incremetn++;
-        
+        $lineas[] = $li;        
     }
 }while($cursor != null);
 
