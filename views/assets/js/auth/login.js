@@ -1,14 +1,16 @@
 let form_login = document.getElementById("form-login");
-let input_email=document.getElementById("singin-email");
-let input_password=document.getElementById("singin-password");
+let input_email=document.getElementById("singin_email");
+let input_password=document.getElementById("singin_password");
 let invalid_feedback=document.querySelectorAll(".valid-register");
 let alert_login=document.querySelector(".alert-login");
-const BASEURL = URL_PROYECT;
+
 try {
         form_login.addEventListener("submit", (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(validateEmail(input_email,invalid_feedback[0])==false){return};        
+        if(validateEmail(input_email,invalid_feedback[0])==false){return};
+        if(validatePassword(input_password,invalid_feedback[1])==false){return}; 
+        console.log(formToJson(form_login));
         sendNotification(form_login);
       });
 
@@ -17,10 +19,9 @@ try {
   }
 
   function sendNotification(form) {
-    fetch(`${BASEURL}app/api/api-login.php`, {
+    fetch(`${URL_PROYECT}app/api/api-login`, {
       method: "POST",
-      body: new FormData(form),
-      header:{"Content-Type": "application/json"}
+      body: formToJson(form)
     })
       .then(parseResponse)
       .then((response) => {
@@ -29,26 +30,29 @@ try {
           is_valid.forEach((input) => {
             input.classList.remove("is-valid");
           });
-          Swal.fire({
+            Swal.fire({
             position: "top-end",
             icon: "success",
             title: "Mensaje enviado",
+            toast: true,
             showConfirmButton: false,
             timer: 1500,
-          });
+          }); 
           form.reset();
-          alert_login.style.display = "none";
-          data_user= response.body.result;
-          window.location.href = `${BASEURL}views/dashboard.php?id=${response.body.result.id_user}`;
+          /* alert_login.style.display = "none";
+          data_user= response.body.result; 
+          ?id=${response.body.result.id_user}*/
+          window.location.href = `${URL_PROYECT}views/index.php`;
         }else{
+          
           Swal.fire({
             position: "top-end",
             icon: "error",
-            title: response.body.result.error ?? "Error al enviar el mensaje",
+            title: `Error al enviar el mensaje`,
+            toast: true,            
             showConfirmButton: false,
             timer: 1500,
           });
-          alert_login.style.display = "block";
         }
       });
   }

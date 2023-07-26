@@ -20,13 +20,15 @@ $data = json_decode($requestPayload);
 //Obtiene el método de la solicitud
 $method=$_SERVER['REQUEST_METHOD'];
 
+
+
 //Número de iteraciones para el algoritmo Blowfish
 $options = [
   'cost' => 12,
 ];
 
 //Compañía por defecto
-$default_company="9999";
+$default_company="1";
 
 //Tipo de registro
 $type_register=$_GET['type-register'];
@@ -39,10 +41,12 @@ if($method=="POST"){
 
     if(isset($_POST['register_email']) 
     && isset($_POST['register_password'])
+    && isset($_POST['register_confirm_password'])
     && isset($_POST['register_policy'])
     ){      
       $email=Validate::validateEmail($_POST['register_email']);      
       $password=Validate::validatePassword($_POST['register_password']);
+      $confirm_password=Validate::validatePassword($_POST['register_confirm_password']);
       $policy=$_POST['register_policy'];
 
       if(is_array($email)){
@@ -50,7 +54,7 @@ if($method=="POST"){
         exit();
       }
       
-      if(is_array($password)){
+      if(is_array($password) || is_array($confirm_password)){
       response($password,404);
       exit();
     }
@@ -63,7 +67,7 @@ if($method=="POST"){
       exit();
     }
 
-    $register=GetModel::getDataFilter('users','email_user','email_user', $email,'id', 'ASC',0,1);
+    $register=GetModel::getDataFilter('users','email_user','email_user', $email,NULL, NULL,NULL,NULL);
     if(!empty($register)){
     if($register[0]->email_user==$email){
       $error = array(
@@ -73,12 +77,25 @@ if($method=="POST"){
       exit();
     }
   }
+    if($password!=$confirm_password){
+      $error = array(
+        "error" => "Las contraseñas no coinciden"
+      );
+      response($error,404);
+      exit();
+    }
 
       /*Encripta la contraseña*/
       $hash = password_hash($password, PASSWORD_BCRYPT, $options);
-      $data=["password" =>$hash,"email_user" => $email,"id_company"=>$default_company,"status_policy"=>$policy];
+      $data=[
+      "password_user" =>$hash,
+      "email_user" => $email,
+      "id_company"=>$default_company,
+      "status_policy"=>$policy,
+      "created_at"=>date('Y-m-d H:i:s')];
       $result=PostModel::postData('users',$data);
-      print_r($result);
+
+      return print_r($result);
       response($result);
 
       exit();

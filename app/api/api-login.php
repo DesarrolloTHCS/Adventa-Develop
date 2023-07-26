@@ -7,13 +7,21 @@ use App\Controllers\Wishlist\WishlistController;
 
 require_once ($_SERVER['DOCUMENT_ROOT'].'/Adventa-Develop/vendor/autoload.php');
 
-$method=$_SERVER['REQUEST_METHOD'];
+// Lee el contenido de la solicitud JSON
+   $requestPayload = file_get_contents('php://input');
+
+   // Decodifica el contenido JSON en un objeto PHP
+   $data = json_decode($requestPayload);
+   
+   //Obtiene el método de la solicitud
+   $method = $_SERVER['REQUEST_METHOD'];
+
 
 if($method=="POST"){
 try{
-    if(isset($_POST['singin-email']) && isset($_POST['singin-password'])){
-        $email=Validate::validateEmail($_POST['singin-email']);
-        $password=Validate::validatePassword($_POST['singin-password']);
+    if(isset($data)){
+        $email=Validate::validateEmail($data->singin_email);
+        $password=Validate::validatePassword($data->singin_password);
 
         if(is_array($email)){
           response($email,404);
@@ -24,7 +32,7 @@ try{
         response($password,404);
         exit();
       }
-        $response=GetModel::getDataFilter('users','id_company,id_user,name_user,password','email_user', $email,'id', 'ASC',0,100);
+        $response=GetModel::getDataFilter('users','id_user,id_company,name_user,password_user','email_user', $email,null,null,null,null);
         if(empty($response)){
           $error = [
             "error"=>"El usuario no existe"
@@ -32,7 +40,7 @@ try{
           response($error,404);
           exit();
         }
-        if(password_verify($password,$response[0]->password)){        
+        if(password_verify($password,$response[0]->password_user)){        
         
         $id_user=$response[0]->id_user;
         $id_company=$response[0]->id_company;
@@ -47,9 +55,8 @@ try{
           "id_company"=>$id_company,
           "company"=>$company
         ];
-        ShoppingCart::getShoppingCartByIdUser($id_user);
-        WishlistController::getWishlistByIdUser($id_user);
         response($response,200);
+        header("Location: ../../views/index.php");
         exit();
         
         }else{

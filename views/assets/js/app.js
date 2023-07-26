@@ -116,15 +116,5 @@ function numberFormat(number, decimals, decimalSeparator, thousandsSeparator) {
   return newNumber;
 }
 
-/**
- * 
- */
-$(document).ready(function() {
-  $('#summernote').summernote({
-    height: 150,   //set editable area's height
-    codemirror: { // codemirror options
-    theme: 'monokai'
-    }
-  });
-});
+
 

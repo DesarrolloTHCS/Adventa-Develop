@@ -14,7 +14,7 @@ class Connection
   static public function infoDataBase()
   {
     $infoDB = array(
-      "database" => "thcsnativo",
+      "database" => "diodi_adventa_develop",
       "user" => 'root',
       "password" => ""
     );

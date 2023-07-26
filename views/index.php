@@ -46,4 +46,16 @@ Layout::layoutHeader();
 <?php
 Layout::layoutFooter();
 ?>
-<script src="assets/js/data_table/products_table.js"></script>
+<script src="assets/js/data_table/products_table.js">
+    /**
+ * 
+ */
+$(document).ready(function() {
+  $('#summernote').summernote({
+    height: 150,   //set editable area's height
+    codemirror: { // codemirror options
+    theme: 'monokai'
+    }
+  });
+});
+</script>

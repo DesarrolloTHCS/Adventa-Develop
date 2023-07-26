@@ -7,9 +7,11 @@ let form_register = document.getElementById("form-register");
 let form_update_register = document.getElementById("form-update-register");
 let register_email = document.getElementById("register_email");
 let register_password = document.getElementById("register_password");
-let confirm_password = document.getElementById('register_confirm-password');
+let confirm_password = document.getElementById('register_confirm_password');
 let register_policy = document.getElementById("register_policy");
 let feedback_register = document.querySelectorAll(".valid-register");
+let card_register = document.getElementById("card-register");
+let card_login=document.getElementById("card-login");
 const ID=new URLSearchParams(window.location.search).get("id");
 
 
@@ -87,11 +89,16 @@ function registerExpress(form){
         validatePassword(register_password, feedback_register[3]) == false
       )
         return;
+        if (
+          validatePassword(confirm_password, feedback_register[4]) == false
+        )
+          return;
         let form_register = new FormData(form);
         form_register.append(
           "register_policy",
           register_policy.checked ? 1 : 0
-        );   
+        );
+         
       sendNotificationRegister(form_register,"express");
     } catch (error) {
       console.log(error);
@@ -107,7 +114,7 @@ function registerExpress(form){
  */
 function userRegisterUpdate(form) {
   try {
-    fetch(`${BASEURL}app/api/api-update-user.php`, {
+    fetch(`${URL_PROYECT}app/api/api-update-user.php`, {
       method: "PUT",
       body: form,
     })
@@ -122,6 +129,7 @@ function userRegisterUpdate(form) {
             position: "top-end",
             icon: "success",
             title: "Mensaje enviado",
+            toast: true,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -131,6 +139,7 @@ function userRegisterUpdate(form) {
             position: "top-end",
             icon: "error",
             title: response.body.result.error ?? "Error al enviar el mensaje",
+            toast: true,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -151,7 +160,7 @@ function userRegisterUpdate(form) {
  */
 function sendNotificationRegister(form,$typeRegister) {
   try {
-    fetch(`${BASEURL}app/api/api-register.php?type-register=${$typeRegister}`, {
+    fetch(`${URL_PROYECT}app/api/api-register.php?type-register=${$typeRegister}`, {
       method: "POST",
       body: form,
     })
@@ -162,6 +171,7 @@ function sendNotificationRegister(form,$typeRegister) {
             position: "top-end",
             icon: "success",
             title: "Registro exitoso",
+            toast: true,
             showConfirmButton: false,
             timer: 1500,
           });          
@@ -177,6 +187,7 @@ function sendNotificationRegister(form,$typeRegister) {
             position: "top-end",
             icon: "error",
             title: response.body.result.error ?? "Error al enviar el mensaje",
+            toast: true,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -187,6 +198,16 @@ function sendNotificationRegister(form,$typeRegister) {
   } catch (error) {
     console.log(error);
   }
+}
+
+function showCardLogin(){
+  card_login.style.display="block";
+  card_register.style.display="none";
+}
+
+function showCardRegister(){
+  card_login.style.display="none";
+  card_register.style.display="block";
 }
 
 
