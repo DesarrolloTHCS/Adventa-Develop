@@ -7,6 +7,7 @@
 */
 use App\Models\GetModel;
 use App\Traits\Validate;
+use App\Traits\Responses;
 require_once ($_SERVER['DOCUMENT_ROOT'].'/Adventa-Develop/vendor/autoload.php');
 
     // Lee el contenido de la solicitud JSON

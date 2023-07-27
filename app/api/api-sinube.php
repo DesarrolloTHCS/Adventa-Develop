@@ -6,10 +6,10 @@
  * Date: 25/07/2023
  */
 
-use App\Models\PostModel;
-use App\Models\GetModel;
-use App\Traits\Validate;
 use App\Controllers\Sinube\SinubeController;
+use App\Traits\Validate;
+use App\Traits\Responses;
+
 require_once ($_SERVER['DOCUMENT_ROOT'].'/Adventa-Develop/vendor/autoload.php');
 
 // Lee el contenido de la solicitud JSON
@@ -22,5 +22,6 @@ $data = json_decode($requestPayload);
 $method=$_SERVER['REQUEST_METHOD'];
 
 if($method=="POST"){
-SinubeController::consultar();
+$result=SinubeController::consultar();
+Responses::response($result);
 }

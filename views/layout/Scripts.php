@@ -34,6 +34,7 @@ class Scripts
 <script src="{$path}datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{$path}datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{$path}datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" integrity="sha512-dfX5uYVXzyU8+KHqj8bjo7UkOdg18PaOtpa48djpNbZHwExddghZ+ZmzWT06R5v6NSk3ZUfsH6FNEDepLx9hPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- AdminLTE App -->
 <script src="{$path_dist}js/adminlte.min.js"></script>
 <!-- Summernote -->

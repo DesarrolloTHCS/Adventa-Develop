@@ -38,11 +38,13 @@ try {
             showConfirmButton: false,
             timer: 1500,
           }); 
-          form.reset();
-          /* alert_login.style.display = "none";
+          /* form.reset();
+          /alert_login.style.display = "none";
           data_user= response.body.result; 
           ?id=${response.body.result.id_user}*/
+          setTimeout(() => {
           window.location.href = `${URL_PROYECT}views/index.php`;
+          }, 2500);
         }else{
           
           Swal.fire({

@@ -21,6 +21,7 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
             'App\\Models\\' => 11,
             'App\\Controllers\\Users\\' => 22,
             'App\\Controllers\\Sinube\\' => 23,
+            'App\\Controllers\\Catalogs\\' => 25,
             'App\\Controllers\\Auth\\' => 21,
             'App\\Controllers\\' => 16,
             'App\\' => 4,
@@ -64,6 +65,10 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
         array (
             0 => __DIR__ . '/../..' . '/app/controllers/sinube',
         ),
+        'App\\Controllers\\Catalogs\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controllers/catalogs',
+        ),
         'App\\Controllers\\Auth\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/controllers/auth',
@@ -80,6 +85,7 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
 
     public static $classMap = array (
         'App\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/controllers/auth/LoginController.php',
+        'App\\Controllers\\Catalogs\\CatalogProductsCOntroller' => __DIR__ . '/../..' . '/app/controllers/catalogs/CatalogProductsController.php',
         'App\\Controllers\\DeleteController' => __DIR__ . '/../..' . '/app/controllers/DeleteController.php',
         'App\\Controllers\\GetController' => __DIR__ . '/../..' . '/app/controllers/GetController.php',
         'App\\Controllers\\PostController' => __DIR__ . '/../..' . '/app/controllers/PostController.php',
@@ -106,6 +112,7 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
         'Views\\Layout\\Layout' => __DIR__ . '/../..' . '/views/layout/layout.php',
         'Views\\Layout\\NavBar' => __DIR__ . '/../..' . '/views/layout/NavBar.php',
         'Views\\Layout\\Scripts' => __DIR__ . '/../..' . '/views/layout/Scripts.php',
+        'Views\\Products\\ProductsDetails' => __DIR__ . '/../..' . '/views/products/PorductsDetails.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Controllers\\Auth\\LoginController' => $baseDir . '/app/controllers/auth/LoginController.php',
+    'App\\Controllers\\Catalogs\\CatalogProductsCOntroller' => $baseDir . '/app/controllers/catalogs/CatalogProductsController.php',
     'App\\Controllers\\DeleteController' => $baseDir . '/app/controllers/DeleteController.php',
     'App\\Controllers\\GetController' => $baseDir . '/app/controllers/GetController.php',
     'App\\Controllers\\PostController' => $baseDir . '/app/controllers/PostController.php',
@@ -33,4 +34,5 @@ return array(
     'Views\\Layout\\Layout' => $baseDir . '/views/layout/layout.php',
     'Views\\Layout\\NavBar' => $baseDir . '/views/layout/NavBar.php',
     'Views\\Layout\\Scripts' => $baseDir . '/views/layout/Scripts.php',
+    'Views\\Products\\ProductsDetails' => $baseDir . '/views/products/PorductsDetails.php',
 );

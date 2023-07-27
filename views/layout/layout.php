@@ -15,7 +15,7 @@ class Layout
     static public function layoutHeader()
     {
         Head::head('Sistema de inventario');
-        echo '<body class="hold-transition sidebar-mini">';
+        echo '<body class="hold-transition sidebar-mini layout-fixed">';
         echo '<div class="wrapper">';
         NavBar::navBar();
         AsideBar::asideBar();

@@ -2,8 +2,6 @@
 
 use App\Models\GetModel;
 use App\Traits\Validate;
-use App\Controllers\ShoppingCart\ShoppingCart;
-use App\Controllers\Wishlist\WishlistController;
 
 require_once ($_SERVER['DOCUMENT_ROOT'].'/Adventa-Develop/vendor/autoload.php');
 
@@ -56,7 +54,7 @@ try{
           "company"=>$company
         ];
         response($response,200);
-        header("Location: ../../views/index.php");
+        //header("Location: ../../views/index.php");
         exit();
         
         }else{

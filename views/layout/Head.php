@@ -11,13 +11,18 @@ class Head
 
     use App;
 
-    static function head($title = "Tuhogarconsentido")
+    static function head($title = "Sistema de inventario")
     {
         session_start();
+        if ($_SESSION['id_user']=="" || $_SESSION['id_user']==null) {
+            header("Location: auth/login");
+            exit();
+        }else{
+            
+        };        
 
         $path = self::PATH_LIBRARIES;
         $path_dist = self::PATH_DIST;
-
 
         $html = <<<HTML
 <!DOCTYPE html>
@@ -61,6 +66,8 @@ class Head
   <link rel="stylesheet" href="{$path}datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{$path}datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="{$path}datatables-buttons/css/buttons.bootstrap4.min.css">
+  
+
     <title>$title</title>
 </head>
 HTML;

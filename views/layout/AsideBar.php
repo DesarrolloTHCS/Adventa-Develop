@@ -76,7 +76,7 @@ class AsideBar
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{$path}views/auth/logout/" class="nav-link " id="logout">
+                <a href="{$path}views/auth/logout" class="nav-link " id="logout">
                 <i class="fa-solid fa-right-from-bracket"></i>
                   <p>Cerrar Sesión</p>
                 </a>

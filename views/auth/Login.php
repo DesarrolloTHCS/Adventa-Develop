@@ -12,11 +12,14 @@ class Login
 
   static function login()
   {
-
+    $url= self::PATH;
     $path = self::PATH_LIBRARIES;
     $path_dist = self::PATH_DIST;
     $path_assets = self::PATH_ASSETS;
-
+  if (!empty($_SESSION['id_user']) && !empty($_SESSION['id_company'])) {
+       header('Location:'.$url.'views/index');
+        exit();
+    }
     $html = <<<HTML
         <!DOCTYPE html>
 <html lang="en">
@@ -188,7 +191,6 @@ JS;
     echo $html;
   }
 }
-
 Login::login();
 Login::register();
 Login::scripts();
