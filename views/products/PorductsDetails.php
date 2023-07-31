@@ -15,7 +15,7 @@ class ProductsDetails{
   <div class="card-body">
     <div class="row">
       <div class="col-12 col-sm-6">
-        <h3 class="d-inline-block d-sm-none">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+        <h3 class="d-inline-block d-sm-none title-modal-product">Titulo</h3>
         <div class="col-12">
           <img src="../../dist/img/prod-1.jpg" class="product-image" alt="Product Image">
         </div>
@@ -28,7 +28,7 @@ class ProductsDetails{
         </div>
       </div>
       <div class="col-12 col-sm-6">
-        <h3 class="my-3">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+        <h3 class="my-3 title-modal-product">Titulo</h3>
         <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
 
         <hr>

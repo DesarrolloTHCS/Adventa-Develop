@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Sinube;
 
+use App\Controllers\Catalogs\CatalogProductsCOntroller;
 class SinubeController
 {
 
@@ -12,7 +13,7 @@ class SinubeController
         $store = 'ECOMMERCE';   
         $price_list = 'Ecommerce';  */
         $cursor = null;
-        $json = array();
+        $products = array();
 
         $empresa    = 'DOD021211S63';
         $usuario    = 'contabilidad.diodi10@gmail.com';
@@ -39,76 +40,26 @@ class SinubeController
         $resultado = curl_exec($ch);
         curl_close($ch);
         $temporal   = explode('¬', $resultado);
-        print_r($temporal);
-        return;
         foreach ($temporal as $key => $li) {
             if ($key == 0) {
                 continue;
             }
             $linea_re   = explode('|', $li);
-
-            if (count($linea_re) == 9) {
-                $json[] = [
-                    'rfc'           => $linea_re[1],
-                    'existencias'   => $linea_re[2],
-                    'producto'      => $linea_re[3],
-                    'sucursal'      => $linea_re[4],
-                    'precio'        => $linea_re[7],
-                    'precioMinimo'    => $linea_re[8],
+            /* if (count($linea_re) == 10) { */
+                $products[] = [
                     'descripcion'   => $linea_re[0],
+                    'marca'           => $linea_re[1],
+                    'categoria'   => $linea_re[2],
+                    'empresa'      => $linea_re[3],
+                    'existencia'      => $linea_re[4],
+                    'producto'      => $linea_re[5],
+                    'precio'        => $linea_re[9],
+                    'precioMinimo'    => $linea_re[10],
+                    
                 ];
-            }
+            /* } */
         }
-        return $json;
-    }
-
-    static function processingSinube($resultado)
-    {
-
-        $cursor = null;
-        $lineas = [];
-
-        do {
-            //echo "<br> Iniciando consulta";
-            $temporal   = explode('¬', $resultado);
-            $linea_re   = explode('|', $temporal[0]);
-            $cursor     = ($linea_re[1] == '&NullSiNube;') ? null : $linea_re[1];
-            foreach ($temporal as $li) {
-                $lineas[] = $li;
-            }
-        } while ($cursor != null);
-
-        //$lineas = explode('¬', $resultado);
-
-        $json = [];
-        $json[] = [
-            'rfc'           => 'RFC',
-            'existencias'   => 'EXISTENCIAS',
-            'producto'      => 'PRODUCTO',
-            'sucursal'      => 'SUCURSAL',
-            'precio'        => 'PRECIO',
-            'precioMinimo'    => 'PRECIO MINIMO',
-            'descripcion'    => 'DESCRIPCION',
-        ];
-
-        foreach ($lineas as $linea) {
-            $contenido = explode('|', $linea);
-            //echo "<pre>";
-            //print_r($contenido);
-            //echo "</pre>";
-            if (count($contenido) == 9) {
-                $json[] = [
-                    'rfc'           => $contenido[1],
-                    'existencias'   => $contenido[2],
-                    'producto'      => $contenido[3],
-                    'sucursal'      => $contenido[4],
-                    'precio'        => $contenido[7],
-                    'precioMinimo'    => $contenido[8],
-                    'descripcion'   => $contenido[0],
-                ];
-            }
-        }
-
-        echo json_encode($json);
+        $sync=CatalogProductsCOntroller::asyncProductsBySinube($products);
+        return $products;
     }
 }

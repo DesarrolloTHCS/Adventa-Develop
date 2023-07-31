@@ -35,20 +35,21 @@ Layout::layoutHeader();
             <div class="card-body">
               <div class="table-responsive">
               
-              <input type="file" id="miArchivoInput" class="form-control" accept=".csv">
+              <input type="file" id="miArchivoInput" class="form-control d-none" accept=".csv">
 
                 <table id="products_table" class="table table-bordered table-striped text-center">
                   <thead>
                     <tr>
                       <th scope="col" class=" col-1">Selcc. <input type="checkbox"></th>
+                      <th scope="col" class=" col-1"></th>
                       <th scope="col" class=" col-1">Descripcion</th>
-                      <th scope="col" class=" col-1">Descripción</th>
-                      <th scope="col" class=" col-2">Marca</th>    
-                      <th scope="col" class=" col-1">Stock</th>
-                      <th scope="col" class=" col-2">Selecciona cantidad</th>
-                      <th scope="col" class=" col-2">Stock</th>
-                      <th scope="col" class=" col-1">Seleccion de producto</th>
-                      <th scope="col" class=" col-1">Cantidad Excedente</th>
+                      <th scope="col" class=" col-1">Marca</th>
+                      <th scope="col" class=" col-2">Categoría</th>    
+                      <th scope="col" class=" col-1">Precio</th>
+                      <th scope="col" class=" col-2">Precio_Minimo</th>
+                      <th scope="col" class=" col-2">Existencia</th>
+                      <th scope="col" class=" col-1">Cantidad_Productos</th>
+                      <th scope="col" class=" col-1">Cantidad_Excedente</th>
                     </tr>
                   </thead>                  
                   <tbody>
@@ -76,15 +77,12 @@ Layout::layoutHeader();
         <div class="modal-dialog modal-dialog-centered modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Proeductos:</h4>
+              <h4 class="modal-title">Producto</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <?php 
-               ProductsDetails::productsDetails();
-               ?>
+            <div class="modal-body" id="body_modal_detail">
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -98,4 +96,7 @@ Layout::layoutHeader();
 <?php
 Layout::layoutFooter();
 ?>
+<script src="../../public/library/papaparse/papaparse.min.js"></script>
+<script src="../../public/library/papaparse/xlxs.min.js"></script>
+<script src="../assets/js/import/import_cvs.js"></script>
 <script src="../assets/js/data_table/products_table.js"></script>

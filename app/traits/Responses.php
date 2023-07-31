@@ -7,7 +7,7 @@ static public function response($response)
       if (!empty($response)) {
         $json = array(
           "status" => 200,
-          "total" => count($response),
+          /* "total" => count($response), */
           'result' => $response
   
         );

@@ -33,15 +33,11 @@ try {
             Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Mensaje enviado",
+            title: "Bienvenido",
             toast: true,
             showConfirmButton: false,
             timer: 1500,
-          }); 
-          /* form.reset();
-          /alert_login.style.display = "none";
-          data_user= response.body.result; 
-          ?id=${response.body.result.id_user}*/
+          });
           setTimeout(() => {
           window.location.href = `${URL_PROYECT}views/index.php`;
           }, 2500);
@@ -50,7 +46,7 @@ try {
           Swal.fire({
             position: "top-end",
             icon: "error",
-            title: `Error al enviar el mensaje`,
+            title: `Error al inciar sesion`,
             toast: true,            
             showConfirmButton: false,
             timer: 1500,
