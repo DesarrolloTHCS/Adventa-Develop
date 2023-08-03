@@ -15,6 +15,7 @@ class AsideBar
       $path = self::PATH;
       $path_dist = self::PATH_DIST;
       $path_storage=self::PATH_STORAGE;
+      $user_name=$_SESSION['name_user'];
         try {
             
 
@@ -35,7 +36,7 @@ class AsideBar
           <img src="{$path_dist}img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alfredo Segura</a>
+          <a href="#" class="d-block">{$user_name}</a>
         </div>
       </div>
 

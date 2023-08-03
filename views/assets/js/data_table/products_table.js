@@ -182,7 +182,7 @@ $(document).ready(function () {
 
         // Recorre el JSON y agrega las filas a la tabla
         for (let item in data) {
-      
+    console.log(item);
       table.row.add([
       item['Selcc'],
       item['Selcc'],
@@ -193,7 +193,6 @@ $(document).ready(function () {
       item['Existencia'],
       item['Cantidad_Productos'],
       item['Cantidad_Excedente']
-      // Agrega aquí los demás campos de tu JSON para completar las columnas
       ]).draw(false); // draw(false) evita redibujar la tabla en cada iteración para mejor rendimiento
   }
   });
@@ -210,7 +209,6 @@ function productDetail(id_product) {
   )
     .then(parseResponse)
     .then((response) => {
-      console.log(response);
       if (response.status == 200) {
         let body_modal = document.getElementById("body_modal_detail");
         let body = ``;

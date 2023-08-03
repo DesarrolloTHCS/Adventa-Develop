@@ -3,9 +3,13 @@
 namespace App\Controllers\Sinube;
 
 use App\Controllers\Catalogs\CatalogProductsCOntroller;
+use App\Models\GetModel;
 class SinubeController
 {
 
+    const URL_GETPOST_SINUBE = "http://getpost.si-nube.appspot.com/getpost";
+
+    const URL_BLOB_SINUBE = "http://ep-dot-si-nube.appspot.com/blob?par=";
 
     static function consultar($store = "CAPITAL SAPI", $price_list = "Adventa", $cursor = null)
     {
@@ -27,7 +31,7 @@ class SinubeController
         $cursor     = ($cursor == null) ? '' : " CURSOR {$cursor}";
         $consulta   = "SELECT P.descripcion, P.marca L.empresa, L.existencia, L.producto, L.sucursal, P.activo, L.almacen, PP.precio, PP.precioMinimo FROM DbProducto AS P INNER JOIN DbInvProductoLote AS L ON L.producto = P.producto AND L.empresa = P.empresa INNER JOIN DbProductoPrecio AS PP ON PP.producto = P.producto AND PP.empresa = P.empresa WHERE PP.listaPrecios = '".$price_list."' AND P.empresa = 'THS19060348A' AND P.activo = true AND L.almacen= '".$store."' AND PP.listaPrecios = '".$price_list."'{$cursor}"; */
 
-        $urlf       = "http://getpost.si-nube.appspot.com/getpost";
+        $urlf       = self::URL_GETPOST_SINUBE;
 
         //$urlf       = "http://getpost.facturanube.appspot.com/getpost";   
         //Pagina DIODI
@@ -61,5 +65,12 @@ class SinubeController
         }
         $sync=CatalogProductsCOntroller::asyncProductsBySinube($products);
         return $products;
+    }
+    
+    static function createSalesNote($id_order,$store){
+        $order_id = $id_order;
+        $store="CAPITAL SAPI";
+        $urlf= self::URL_BLOB_SINUBE;
+
     }
 }

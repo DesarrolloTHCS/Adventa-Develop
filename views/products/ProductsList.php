@@ -59,6 +59,12 @@ Layout::layoutHeader();
                 </table>
               </div>
             <!-- /.card -->
+              <div class="p-2 text-right">
+                <div class="mb-3">
+                  <a name="" id="" class="btn btn-primary" type="button" value="Levantar ordern">Levantar Pedido...<i class="fa-regular fa-thumbs-up"></i></a>
+                </div>
+                
+              </div>
             </div>
           </div>
         </div>
