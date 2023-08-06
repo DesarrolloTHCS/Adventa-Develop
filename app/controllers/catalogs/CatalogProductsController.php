@@ -42,6 +42,7 @@ class CatalogProductsCOntroller{
             foreach ($products as $product){
                 
                 $data=[
+                    "id_product_sinube"=>$product['producto'],
                     "description_product"=>$product['descripcion'],
                      "brand_product"=>$product['marca'],
                      "category_product"=>$product['categoria'],

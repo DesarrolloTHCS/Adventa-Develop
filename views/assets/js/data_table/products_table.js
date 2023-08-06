@@ -1,283 +1,190 @@
-$(document).ready(function () {
-  var url = URL_PROYECT + "app/api/api-products.php";
-  var table = $("#products_table").DataTable({
-      aProcessing: true,
-      aServerSide: true,
-      searching: true,
-      dom: '<"top"l<"float-right"f>>Brtip',
-      lengthChange: true,
-      lengthMenu: [
-        [10, 25, 50, -1],
-        [10, 25, 50, "All"],
-      ],
-      iDisplayLength: 10,
-      colReorder: true,
-      buttons: [
-        "colvis",
-        {
-          extend: "csv",
-          text: "Importar CSV",
-          action: function (e, dt, node, config) {
-            $("#miArchivoInput").trigger("click");
-          },
-        },
-        [
-          {
-            extend: "csv",
-            text: "Exportar CSV",
-            exportOptions: {
-              columns: [0, 2, 3, 4, 5, 6, 7, 8, 9],
-              format: {
-                body: function (data, row, column, node) {
-                  // Si el nodo contiene un checkbox, obtenemos el valor del atributo "data-id-product"
-                  if ($(node).find('input[type="checkbox"]').length > 0) {
-                    return $(node)
-                      .find('input[type="checkbox"]')
-                      .data("id-product");
-                  }
-                  // Si el nodo contiene etiquetas HTML, devolvemos solo el texto visible
-                  if ($(node).children().length > 0) {
-                    return $(node).text();
-                  }
-                  return data;
-                },
-              },
-            },
-            filename: "productos", // Nombre del archivo CSV
-          },
-        ],
-      ],
-      ajax: {
-        url: url + "?type=products",
-        type: "GET",
-        dataType: "json",
-        dataSrc: function (data) {
-          // Muestra la data recibida en la consola del navegador
-          console.log(data);
+document.addEventListener("DOMContentLoaded", function () {
+  const apiUrl = 'app/api/api-products.php';
+  let productsData = [];
+  let currentPage = 1;
+  let itemsPerPage = 10;
 
-          // Devuelve la data sin procesar (sin cambios) para que DataTables la muestre en la tabla
-          return data.result;
-        },
-        error: function (e) {
-          console.log(e.responseText);
-        },
-      },
-      bDestroy: true,
-      responsive: true,
-      bInfo: true,
-      autoWidth: true,
-      language: {
-        sProcessing: "Procesando...",
-        sLengthMenu: "Mostrar _MENU_ registros",
-        sZeroRecords: "No se encontraron resultados",
-        sEmptyTable: "Ningún dato disponible en esta tabla",
-        sInfo: "Mostrando un total de _TOTAL_ registros",
-        sInfoEmpty: "Mostrando un total de 0 registros",
-        sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
-        sInfoPostFix: "",
-        sSearch: "Buscar:",
-        sUrl: "",
-        sInfoThousands: ",",
-        sLoadingRecords: "Cargando...",
-        oPaginate: {
-          sFirst: "Primero",
-          sLast: "Último",
-          sNext: "Siguiente",
-          sPrevious: "Anterior",
-        },
-        oAria: {
-          sSortAscending:
-            ": Activar para ordenar la columna de manera ascendente",
-          sSortDescending:
-            ": Activar para ordenar la columna de manera descendente",
-        },
-      },
-      columnDefs: [
-        {
-          targets: 0,
-          orderable: false,
-          className: "dt-body-center",
-          render: function (data, type, full, meta) {
-            return '<input type="checkbox" data-id-product="' + data + '">';
-          },
-        },
-      ],
-      columns: [
-        { data: "id_product" }, // Asocia la propiedad 'descripcion' del objeto al segundo campo de la tabla
-        {
-          data: "product_image_1",
-          render: function (data, type, row) {
-            // Renderiza el primer campo de entrada para cada fila
-            return (
-              '<img src="' +
-              URL_PROYECT +
-              "storage/images/products/" +
-              data +
-              '" alt="Product" width=52px heigth=52px>'
-            );
-          },
-        },
-        {
-          data: "description_product",
-          render: function (data, type, row, full) {
-            id_product = row.id_product;
-            // Renderiza el primer campo de entrada para cada fila
-            return (
-              '<a href="#" onClick="productDetail(' +
-              id_product +
-              ')" data-toggle="modal" data-target="#modal-lg">' +
-              data +
-              "</a>"
-            );
-          },
-        }, // Asocia la propiedad 'descripcion' del objeto al segundo campo de la tabla
-        { data: "brand_product" }, // Asocia la propiedad 'rfc' del objeto al sexto campo de la tabla
-        { data: "category_product" }, // Asocia la propiedad 'precio' del objeto al cuarto campo de la tabla
-        { data: "price_sinube" }, // Asocia la propiedad 'precio' del objeto al cuarto campo de la tabla
-        { data: "price_minimum_sinube" }, // Asocia la propiedad 'precioMinimo' del objeto al quinto campo de la tabla
-        { data: "existence_product" }, // Asocia la propiedad 'existencias' del objeto al tercer campo de la tabla
-        {
-          data: null,
-          render: function (data, type, row) {
-            // Renderiza el primer campo de entrada para cada fila
-            return (
-              '<input type="number" class="form-control" value="0" min=0 max="' +
-              data.existencias +
-              '">'
-            );
-          },
-        },
-        {
-          data: null,
-          render: function (data, type, row) {
-            // Renderiza el primer campo de entrada para cada fila
-            return '<input type="number" class="form-control" value="0" min=0>';
-          },
-        },
-      ],
-    })
-    .buttons()
-    .container()
-    .appendTo("#products_table .col-md-6:eq(0)");
+  const fetchData = async () => {
+      try {
+          const response = await fetch(apiUrl);
+          productsData = await response.json();
+          renderTable();
+      } catch (error) {
+          console.error("Error fetching data:", error);
+      }
+  };
 
-  // Personalizar los botones con clases de Bootstrap
-  $(".buttons-colvis").addClass("btn-warning"); // Cambiar el color del botón Colvis (verde)
-  $(".buttons-csv").addClass("btn-success"); // Cambiar el color del botón Exportar CSV (amarillo)
+  const renderTable = () => {
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
 
-  $("#summernote").summernote({
-    height: 150, //set editable area's height
-    codemirror: {
-      // codemirror options
-      theme: "monokai",
-    },
+      const paginatedData = productsData.slice(startIndex, endIndex);
+      const tableBody = document.querySelector('#productTable tbody');
+      tableBody.innerHTML = '';
+
+      paginatedData.forEach((product, index) => {
+          const row = `
+              <tr>
+                  <td><input type="checkbox" class="productCheckbox"></td>
+                  <td>${index + 1}</td>
+                  <td>${product.descripcion}</td>
+                  <td>${product.marca}</td>
+                  <td>${product.categoria}</td>
+                  <td>${product.precio}</td>
+                  <td>${product.precio_minimo}</td>
+                  <td>${product.existencia}</td>
+                  <td><input type="number" class="form-control form-control-sm cantidadProducto" value="0"></td>
+                  <td><input type="number" class="form-control form-control-sm cantidadExcedente" value="0"></td>
+              </tr>
+          `;
+          tableBody.insertAdjacentHTML('beforeend', row);
+      });
+
+      const totalPages = Math.ceil(productsData.length / itemsPerPage);
+      renderPagination(totalPages);
+  };
+
+  const renderPagination = (totalPages) => {
+      const pagination = document.querySelector('#pagination');
+      pagination.innerHTML = '';
+
+      for (let i = 1; i <= totalPages; i++) {
+          const listItem = document.createElement('li');
+          listItem.classList.add('page-item');
+          if (i === currentPage) {
+              listItem.classList.add('active');
+          }
+          const link = document.createElement('a');
+          link.classList.add('page-link');
+          link.href = '#';
+          link.textContent = i;
+          link.dataset.page = i;
+          listItem.appendChild(link);
+          pagination.appendChild(listItem);
+      }
+  };
+
+  const exportSelected = () => {
+      const selectedProducts = [];
+
+      const productCheckboxes = document.querySelectorAll('.productCheckbox:checked');
+      productCheckboxes.forEach(checkbox => {
+          const row = checkbox.closest('tr');
+          const index = parseInt(row.querySelector('td:nth-child(2)').textContent) - 1;
+          const cantidadProducto = parseInt(row.querySelector('.cantidadProducto').value);
+          const cantidadExcedente = parseInt(row.querySelector('.cantidadExcedente').value);
+
+          const product = {
+              ...productsData[index],
+              cantidadProducto: cantidadProducto,
+              cantidadExcedente: cantidadExcedente
+          };
+          selectedProducts.push(product);
+      });
+
+      return selectedProducts;
+  };
+
+  document.querySelector('#selectAll').addEventListener('change', function () {
+      const productCheckboxes = document.querySelectorAll('.productCheckbox');
+      productCheckboxes.forEach(checkbox => {
+          checkbox.checked = this.checked;
+      });
   });
 
-  $("#miArchivoInput").on("change", function (e) {
-    
-    data=importFile(); //trae una arreglo de jsons
-    
-    // Limpiar la tabla antes de llenarla con los nuevos datos
-    table=$("#products_table").DataTable().clear().draw();
-
-
-        // Recorre el JSON y agrega las filas a la tabla
-        for (let item in data) {
-    console.log(item);
-      table.row.add([
-      item['Selcc'],
-      item['Selcc'],
-      item['Descripcion'],
-      item['Marca'],
-      item['Precio'],
-      item['Precio_Minimo'],
-      item['Existencia'],
-      item['Cantidad_Productos'],
-      item['Cantidad_Excedente']
-      ]).draw(false); // draw(false) evita redibujar la tabla en cada iteración para mejor rendimiento
-  }
+  document.querySelector('#itemsPerPage').addEventListener('change', function () {
+      itemsPerPage = parseInt(this.value);
+      currentPage = 1;
+      renderTable();
   });
 
+  document.querySelector('#pagination').addEventListener('click', function (e) {
+      if (e.target && e.target.classList.contains('page-link')) {
+          e.preventDefault();
+          currentPage = parseInt(e.target.dataset.page);
+          renderTable();
+      }
+  });
+
+  fetchData();
+
+  document.querySelector('#exportCsv').addEventListener('click', function () {
+    const selectedData = exportSelected();
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Descripción,Marca,Categoría,Precio,Precio Mínimo,Existencia,Cantidad Productos,Cantidad Excedente\n";
+
+    selectedData.forEach(product => {
+        const row = [
+            product.descripcion,
+            product.marca,
+            product.categoria,
+            product.precio,
+            product.precio_minimo,
+            product.existencia,
+            product.cantidadProducto || "",
+            product.cantidadExcedente || ""
+        ];
+        csvContent += row.join(",") + "\n";
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "productos.csv");
+    document.body.appendChild(link);
+    link.click();
+});
+
+document.querySelector('#importCsv').addEventListener('click', function () {
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".csv";
+    fileInput.style.display = "none";
+    
+    document.body.appendChild(fileInput);
+    
+    fileInput.addEventListener('change', async function (event) {
+        const file = event.target.files[0];
+        
+        if (file) {
+            try {
+                const fileContent = await file.text();
+                const lines = fileContent.split('\n');
+                
+                const importedData = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const columns = lines[i].split(',');
+                    
+                    if (columns.length >= 7) {
+                        const product = {
+                            descripcion: columns[0],
+                            marca: columns[1],
+                            categoria: columns[2],
+                            precio: columns[3],
+                            precio_minimo: columns[4],
+                            existencia: columns[5],
+                            cantidadProducto: columns[6],
+                            cantidadExcedente: columns[7]
+                        };
+                        
+                        importedData.push(product);
+                    }
+                }
+                
+                productsData = importedData;
+                currentPage = 1;
+                renderTable();
+            } catch (error) {
+                console.error("Error al importar CSV:", error);
+            }
+        }
+        
+        document.body.removeChild(fileInput);
+    });
+    
+    fileInput.click();
+});
 
 });
 
-function productDetail(id_product) {
-  fetch(
-    `${URL_PROYECT}app/api/api-products.php?type=detail&id_product=${id_product}`,
-    {
-      method: "GET",
-    }
-  )
-    .then(parseResponse)
-    .then((response) => {
-      if (response.status == 200) {
-        let body_modal = document.getElementById("body_modal_detail");
-        let body = ``;
-        response.body.result.forEach((element) => {
-          body = bodyModal(element);
-        });
-
-        body_modal.innerHTML = body;
-      } else {
-        throw new Error("Error en la petición");
-      }
-    });
-}
-
-function bodyModal(element) {
-  body = `
-        <!-- Main content -->
-        <section class="content">
-    
-    <!-- Default box -->
-    <div class="card card-solid">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-sm-6">
-            <h3 class="d-inline-block d-sm-none title-modal-product">${element.description_product}</h3>
-            <div class="col-12">
-              <img src="${URL_PROYECT}storage/images/products/${element.product_image_1}" class="product-image" alt="Product Image">
-            </div>
-            <div class="col-12 product-image-thumbs">
-              <div class="product-image-thumb active"><img src="${URL_PROYECT}storage/images/products/${element.product_image_1}" alt="Product Image"></div>
-              <div class="product-image-thumb" ><img src="${URL_PROYECT}storage/images/products/${element.product_image_1}" alt="Product Image"></div>
-              <div class="product-image-thumb" ><img src="${URL_PROYECT}storage/images/products/${element.product_image_1}" alt="Product Image"></div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6">
-            <h3 class="my-3 title-modal-product">${element.description_product}</h3>
-            <p>${element.description_product}</p>
-            <hr>    
-            
-            <div class="bg-primary py-2 px-3 mt-4">
-              <h2 class="mb-0">$ 
-              ${element.price_sinube} mxn c/u
-              </h2>
-              <h4 class="mt-0">
-                <small>Stock: ${element.existence_product}</small>
-              </h4>
-            </div>
-
-            <div class="mt-4 product-share">
-              <a href="https://es-la.facebook.com/DIODImx/" target=_blank class="text-gray">
-                <i class="fab fa-facebook-square fa-2x"></i>
-              </a>
-              <a href="https://www.diodi.mx/" target=_blank class="text-gray">
-              <i class="fa-solid fa-d fa-2x"></i>
-              </a>
-              <a href="mailto:ventas@diodi.mx" target=_blank class="text-gray">
-                <i class="fas fa-envelope-square fa-2x"></i>
-              </a>
-            </div>
-    
-          </div>
-        </div>
-      </div>
-      <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
-    
-    </section>
-    <!-- /.content -->
-        `;
-  return body;
-}

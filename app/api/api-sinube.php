@@ -23,5 +23,6 @@ $method=$_SERVER['REQUEST_METHOD'];
 
 if($method=="POST"){
 $result=SinubeController::consultar();
+print_r($result);
 Responses::response($result);
 }

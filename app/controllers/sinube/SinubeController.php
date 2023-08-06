@@ -13,23 +13,24 @@ class SinubeController
 
     static function consultar($store = "CAPITAL SAPI", $price_list = "Adventa", $cursor = null)
     {
-/* 
-        $store = 'ECOMMERCE';   
-        $price_list = 'Ecommerce';  */
+
+        /* $store = 'ECOMMERCE';   
+        $price_list = 'Ecommerce'; */  
         $cursor = null;
         $products = array();
-
         $empresa    = 'DOD021211S63';
         $usuario    = 'contabilidad.diodi10@gmail.com';
         $password   = 'KEPF2R3E';
         $cursor     = ($cursor == null) ? '' : " CURSOR {$cursor}";
-        $consulta   = "SELECT P.descripcion, P.marca, P.codigoAuxiliar, L.empresa, L.existencia, L.producto, L.sucursal, P.activo, L.almacen, PP.precio, PP.precioMinimo FROM DbProducto AS P INNER JOIN DbInvProductoLote AS L ON L.producto = P.producto AND L.empresa = P.empresa INNER JOIN DbProductoPrecio AS PP ON PP.producto = P.producto AND PP.empresa = P.empresa WHERE PP.listaPrecios = '" . $price_list . "' AND P.empresa = 'DOD021211S63' AND P.activo = true AND L.almacen= '" . $store . "' AND PP.listaPrecios = '" . $price_list . "'{$cursor}";
+        $consulta   = "SELECT P.descripcion, P.marca, P.codigoAuxiliar, L.empresa, L.existencia, L.producto, L.sucursal, P.activo, L.almacen, PP.precio, PP.precioMinimo FROM DbProducto AS P INNER JOIN DbInvProductoLote AS L ON L.producto = P.producto AND L.empresa = P.empresa INNER JOIN DbProductoPrecio AS PP ON PP.producto = P.producto AND PP.empresa = P.empresa WHERE PP.listaPrecios = '" . $price_list . "' AND P.empresa = 'DOD021211S63' AND P.activo = true AND L.almacen= '" . $store . "' AND PP.listaPrecios = '" . $price_list . "'{$cursor}"; 
 
-       /*  $empresa    = 'THS19060348A';
+        /* $consulta   = "SELECT P.descripcion, P.marca, P.codigoAuxiliar, L.empresa, L.existencia, L.producto, L.sucursal, P.activo, L.almacen, PP.precio, PP.precioMinimo FROM DbProducto AS P INNER JOIN DbInvProductoLote AS L ON L.producto = P.producto AND L.empresa = P.empresa INNER JOIN DbProductoPrecio AS PP ON PP.producto = P.producto AND PP.empresa = P.empresa WHERE PP.listaPrecios = '" . $price_list . "' AND P.empresa = 'DOD021211S63' AND P.activo = true AND L.almacen= '" . $store . "' AND PP.listaPrecios = '" . $price_list . "'{$cursor}";  */
+
+        /* $empresa    = 'THS19060348A';
         $usuario    = 'contabilidad.diodi9@gmail.com';
         $password   = 'THCS2021@1';
         $cursor     = ($cursor == null) ? '' : " CURSOR {$cursor}";
-        $consulta   = "SELECT P.descripcion, P.marca L.empresa, L.existencia, L.producto, L.sucursal, P.activo, L.almacen, PP.precio, PP.precioMinimo FROM DbProducto AS P INNER JOIN DbInvProductoLote AS L ON L.producto = P.producto AND L.empresa = P.empresa INNER JOIN DbProductoPrecio AS PP ON PP.producto = P.producto AND PP.empresa = P.empresa WHERE PP.listaPrecios = '".$price_list."' AND P.empresa = 'THS19060348A' AND P.activo = true AND L.almacen= '".$store."' AND PP.listaPrecios = '".$price_list."'{$cursor}"; */
+        $consulta   = "SELECT P.descripcion, P.marca, L.empresa, L.existencia, L.producto, L.sucursal, P.activo, L.almacen, PP.precio, PP.precioMinimo FROM DbProducto AS P INNER JOIN DbInvProductoLote AS L ON L.producto = P.producto AND L.empresa = P.empresa INNER JOIN DbProductoPrecio AS PP ON PP.producto = P.producto AND PP.empresa = P.empresa WHERE PP.listaPrecios = '".$price_list."' AND P.empresa = 'THS19060348A' AND P.activo = true AND L.almacen= '".$store."' AND PP.listaPrecios = '".$price_list."'{$cursor}"; */
 
         $urlf       = self::URL_GETPOST_SINUBE;
 
@@ -45,6 +46,7 @@ class SinubeController
         curl_close($ch);
         $temporal   = explode('¬', $resultado);
         foreach ($temporal as $key => $li) {
+            print_r($li);
             if ($key == 0) {
                 continue;
             }
@@ -52,18 +54,32 @@ class SinubeController
             /* if (count($linea_re) == 10) { */
                 $products[] = [
                     'descripcion'   => $linea_re[0],
-                    'marca'           => $linea_re[1],
+                    'marca'           => $linea_re[1]??"sin marca",
                     'categoria'   => $linea_re[2],
                     'empresa'      => $linea_re[3],
                     'existencia'      => $linea_re[4],
                     'producto'      => $linea_re[5],
                     'precio'        => $linea_re[9],
-                    'precioMinimo'    => $linea_re[10],
+                    'precioMinimo'    => $linea_re[10]??0
+
                     
                 ];
-            /* } */
-        }
+                /* if(count($linea_re) == 9){
+                    $json[] = [
+                        'descripcion'   => $linea_re[0],
+                        'marca'           => $linea_re[1]??"sin marca",
+                        'categoria'   => $linea_re[2],
+                        'empresa'      => $linea_re[3],
+                        'existencia'      => $linea_re[4],
+                        'producto'      => $linea_re[5],
+                        'precio'        => $linea_re[9],
+                        'precioMinimo'    => $linea_re[10]??0,
+                        
+                    ]; */
+            
+                }
         $sync=CatalogProductsCOntroller::asyncProductsBySinube($products);
+        
         return $products;
     }
     
@@ -71,6 +87,11 @@ class SinubeController
         $order_id = $id_order;
         $store="CAPITAL SAPI";
         $urlf= self::URL_BLOB_SINUBE;
+        $conceptos = '';
+        $subtotal = 0.0;
+        $iva = 0.0;
+        /* $order=GetModel::getRelDataFilter(); */
+
 
     }
 }
