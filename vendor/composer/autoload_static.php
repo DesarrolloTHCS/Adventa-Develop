@@ -21,6 +21,7 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
             'App\\Models\\' => 11,
             'App\\Controllers\\Users\\' => 22,
             'App\\Controllers\\Sinube\\' => 23,
+            'App\\Controllers\\Orders\\' => 23,
             'App\\Controllers\\Catalogs\\' => 25,
             'App\\Controllers\\Auth\\' => 21,
             'App\\Controllers\\' => 16,
@@ -65,6 +66,10 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
         array (
             0 => __DIR__ . '/../..' . '/app/controllers/sinube',
         ),
+        'App\\Controllers\\Orders\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controllers/orders',
+        ),
         'App\\Controllers\\Catalogs\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/controllers/catalogs',
@@ -86,8 +91,10 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
     public static $classMap = array (
         'App\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/controllers/auth/LoginController.php',
         'App\\Controllers\\Catalogs\\CatalogProductsCOntroller' => __DIR__ . '/../..' . '/app/controllers/catalogs/CatalogProductsController.php',
+        'App\\Controllers\\Curl\\CurlController' => __DIR__ . '/../..' . '/app/controllers/curl/CurlController.php',
         'App\\Controllers\\DeleteController' => __DIR__ . '/../..' . '/app/controllers/DeleteController.php',
         'App\\Controllers\\GetController' => __DIR__ . '/../..' . '/app/controllers/GetController.php',
+        'App\\Controllers\\Orders\\OrdersController' => __DIR__ . '/../..' . '/app/controllers/orders/OrdersController.php',
         'App\\Controllers\\PostController' => __DIR__ . '/../..' . '/app/controllers/PostController.php',
         'App\\Controllers\\PutController' => __DIR__ . '/../..' . '/app/controllers/PutController.php',
         'App\\Controllers\\Sinube\\SinubeController' => __DIR__ . '/../..' . '/app/controllers/sinube/SinubeController.php',

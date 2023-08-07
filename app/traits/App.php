@@ -1,6 +1,9 @@
 <?php
 namespace App\Traits;
 
+use DateTime;
+use DateTimeZone;
+
 Trait App{
 
     /**
@@ -54,6 +57,11 @@ Trait App{
     //Enlace página linkedin
     public const LINKEDIN='https://mx.linkedin.com/company/tu-hogar-con-sentido';
     
+    //La tasa del IVA del 16% se expresa como 0.16
+    public const TASA_IVA=0.16;
+
+    //Factor para calcular el precio con IVA
+    public const FACTOR_TOTAL_IVA=1.16;
 
     public function url(){
        $url= $_SERVER['DOCUMENT_ROOT'] . '/Adventa-Develop/';
@@ -61,8 +69,14 @@ Trait App{
     }
 
     static function getCurrentTime(){
-        $time=date("Y/m/d h:i:s");
-        return $time;
+    // Crear un objeto DateTime con la zona horaria de México
+    $timezone = new DateTimeZone('America/Mexico_City');
+    $datetime = new DateTime('now', $timezone);
+
+    // Formatear la fecha y hora
+    $time = $datetime->format('Y-m-d h:i:s');
+
+    return $time;
     }
 
     

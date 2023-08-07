@@ -15,6 +15,7 @@ return array(
     'App\\Models\\' => array($baseDir . '/app/models'),
     'App\\Controllers\\Users\\' => array($baseDir . '/app/controllers/users'),
     'App\\Controllers\\Sinube\\' => array($baseDir . '/app/controllers/sinube'),
+    'App\\Controllers\\Orders\\' => array($baseDir . '/app/controllers/orders'),
     'App\\Controllers\\Catalogs\\' => array($baseDir . '/app/controllers/catalogs'),
     'App\\Controllers\\Auth\\' => array($baseDir . '/app/controllers/auth'),
     'App\\Controllers\\' => array($baseDir . '/app/controllers'),

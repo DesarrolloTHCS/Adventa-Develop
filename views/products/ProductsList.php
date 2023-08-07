@@ -36,46 +36,53 @@ Layout::layoutHeader();
         <!-- /.card-header -->
         <div class="card-body">
           <div class="table-responsive">
-              <h1>Tabla con Funcionalidades</h1>
-              <div class="form-inline mb-2">
-                <label for="recordsPerPage">Registros por página:</label>
-                <select id="recordsPerPage" class="form-control ml-2">
-                  <option value="10">10</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                  <option value="all">Todos</option>
-                </select>
-                <input type="text" id="searchInput" class="form-control ml-auto" placeholder="Buscar...">
+            <h1>Tabla con Funcionalidades</h1>
+            <div class="form-inline mb-2">
+              <label for="recordsPerPage">Registros por página:</label>
+              <select id="recordsPerPage" class="form-control ml-2">
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="all">Todos</option>
+              </select>
+              <input type="text" id="searchInput" class="form-control ml-auto" placeholder="Buscar...">
+            </div>
+            <table id="products_list" class="table table-striped">
+              <thead>
+                <tr>
+                  <th>
+                    <input type="checkbox" id="selectAll">
+                  </th>
+                  <th>ID</th>
+                  <th>Descripción</th>
+                  <th>Marca</th>
+                  <th>Categoría</th>
+                  <th>Precio</th>
+                  <th>Precio Mínimo</th>
+                  <th>Existencia</th>
+                  <th>Cantidad Productos</th>
+                  <th>Cantidad Excedente</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Filas de la tabla serán agregadas dinámicamente aquí -->
+              </tbody>
+            </table>
+            <button id="exportCSV" class="btn btn-primary">
+            <i class="fa-solid fa-download"></i> Exportar CSV</button>
+              <div class="custom-file col-sm-4">
+                <input type="file" class="custom-file-input" id="importCSV">
+                <label class="custom-file-label" for="customFile"><i class="fa-solid fa-upload"></i> Importar lista</label>
               </div>
-              <table id="products_list" class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>
-                      <input type="checkbox" id="selectAll">
-                    </th>
-                    <th>ID</th>
-                    <th>Descripción</th>
-                    <th>Marca</th>
-                    <th>Categoría</th>
-                    <th>Precio</th>
-                    <th>Precio Mínimo</th>
-                    <th>Existencia</th>
-                    <th>Cantidad Productos</th>
-                    <th>Cantidad Excedente</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Filas de la tabla serán agregadas dinámicamente aquí -->
-                </tbody>
-              </table>
-              <button id="exportCSV" class="btn btn-primary">Exportar CSV</button>
-              <button id="importCSV" class="btn btn-secondary">Importar CSV</button>
-              <button id="createOrder" class="btn btn-success">Levantar Orden</button>
-              <nav aria-label="Page navigation">
-                <ul id="pagination" class="pagination">
-                  <!-- Elementos de paginación serán agregados dinámicamente aquí -->
-                </ul>
-              </nav>
+              
+            <!-- <input name="" id="importCSV" class="btn btn-primary" type="FILE" value="Button"> -->
+            <!-- <button id="importCSV" class="btn btn-secondary">Importar CSV</button> -->
+            <button id="createOrder" class="btn btn-success">Levantar Orden</button>
+            <nav aria-label="Page navigation">
+              <ul id="pagination" class="pagination">
+                <!-- Elementos de paginación serán agregados dinámicamente aquí -->
+              </ul>
+            </nav>
           </div>
         </div>
         <!-- /.card -->
@@ -93,7 +100,7 @@ Layout::layoutHeader();
 </section>
 <!-- /.content -->
 
-<div class="modal fade" id="modal-lg">
+<div class="modal fade" id="modal-detail-product">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
