@@ -36,47 +36,46 @@ Layout::layoutHeader();
         <!-- /.card-header -->
         <div class="card-body">
           <div class="table-responsive">
-
-            <div class="row mt-3">
-              <div class="col-md-6">
-                 <button id="exportCsv" class="btn btn-primary">Exportar CSV</button>
-                  <button id="importCsv" class="btn btn-primary ml-2">Importar CSV</button>
-              </div>
-              <div class="col-md-6 text-right">
-                <label for="itemsPerPage">Mostrar:</label>
-                <select id="itemsPerPage" class="form-control form-control-sm d-inline-block" style="width: 80px;">
+              <h1>Tabla con Funcionalidades</h1>
+              <div class="form-inline mb-2">
+                <label for="recordsPerPage">Registros por página:</label>
+                <select id="recordsPerPage" class="form-control ml-2">
                   <option value="10">10</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
-                  <option value="-1">Todos</option>
+                  <option value="all">Todos</option>
                 </select>
-                <input id="searchInput" type="text" class="form-control form-control-sm d-inline-block ml-2" style="width: 150px;" placeholder="Buscar...">
+                <input type="text" id="searchInput" class="form-control ml-auto" placeholder="Buscar...">
               </div>
-            </div>
-            <table id="productTable" class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col" class="col-1"><input type="checkbox" id="selectAll"></th>
-                    <th scope="col" class="col-1"></th>
-                    <th scope="col" class="col-1">Descripción</th>
-                    <th scope="col" class="col-1">Marca</th>
-                    <th scope="col" class="col-2">Categoría</th>
-                    <th scope="col" class="col-1">Precio</th>
-                    <th scope="col" class="col-2">Precio Mínimo</th>
-                    <th scope="col" class="col-2">Existencia</th>
-                    <th scope="col" class="col-1">Cantidad Productos</th>
-                    <th scope="col" class="col-1">Cantidad Excedente</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-12">
+              <table id="products_list" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>
+                      <input type="checkbox" id="selectAll">
+                    </th>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Marca</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Precio Mínimo</th>
+                    <th>Existencia</th>
+                    <th>Cantidad Productos</th>
+                    <th>Cantidad Excedente</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Filas de la tabla serán agregadas dinámicamente aquí -->
+                </tbody>
+              </table>
+              <button id="exportCSV" class="btn btn-primary">Exportar CSV</button>
+              <button id="importCSV" class="btn btn-secondary">Importar CSV</button>
+              <button id="createOrder" class="btn btn-success">Levantar Orden</button>
               <nav aria-label="Page navigation">
-                <ul id="pagination" class="pagination"></ul>
+                <ul id="pagination" class="pagination">
+                  <!-- Elementos de paginación serán agregados dinámicamente aquí -->
+                </ul>
               </nav>
-            </div>
           </div>
         </div>
         <!-- /.card -->
