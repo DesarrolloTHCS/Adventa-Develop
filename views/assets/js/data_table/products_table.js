@@ -1,43 +1,46 @@
-document.addEventListener("DOMContentLoaded",function () {
-  try{
-  
-    $('#summernote').summernote({
-      tabsize: 2,
-      minHeight: 120,
-      maxHeight: 250,
-      toolbar: [
-        ['style', ['style']],
-        ['font', ['bold', 'underline', 'clear']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['view', ['fullscreen']]
-      ]
-    });
+//document.addEventListener("DOMContentLoaded",function () {
+try {
+  $("#summernote").summernote({
+    tabsize: 2,
+    minHeight: 120,
+    maxHeight: 250,
+    toolbar: [
+      ["style", ["style"]],
+      ["font", ["bold", "underline", "clear"]],
+      ["color", ["color"]],
+      ["para", ["ul", "ol", "paragraph"]],
+      ["view", ["fullscreen"]],
+    ],
+  });
 
   const URL_PRODUCTS = URL_PROYECT + "app/api/api-products.php";
 
-  fetch(URL_PRODUCTS + "?type=products", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then(parseResponse)
-    .then((data) => {
-      if (data.status === 200) {
-        console.log(data.body.result);
-        loadTableData(data.body.result);
-      } else {
-        console.log("Error");
-      }
-    }).catch(error => console.log(error));
+  function updateTableData() {
+    fetch(URL_PRODUCTS + "?type=products", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(parseResponse)
+      .then((data) => {
+        if (data.status === 200) {
+          console.log(data.body.result);
+          loadTableData(data.body.result);
+        } else {
+          console.log("Error");
+        }
+      })
+      .catch((error) => console.log(error));
+  }
 
   // Función para cargar los datos JSON en la tabla
   function loadTableData(data) {
-    const tbody = document.querySelector("#products_list tbody");
+    let tbody = document.querySelector("#products_list tbody");
     tbody.innerHTML = ""; // Limpiar contenido anterior de la tabla
     data.forEach((item) => {
-      const row = `
+      console.log(tbody);
+      let row = `
           <tr>
             <td><input type="checkbox" class="rowCheckbox"></td>
             <td>${item.id_product}</td>
@@ -46,11 +49,20 @@ document.addEventListener("DOMContentLoaded",function () {
             <td>${item.category_product}</td>
             <td>${item.price_sinube}</td>
             <td>${item.price_minimum_sinube}</td>
-            <td>${item.existence_product}</td>
+            <td>${item.existence_product}</td>`;
+
+      if (item.existence_product == 0) {
+        row += `    
+              <td><input type="number" class="form-control cantidadProductos" value="" disabled></td>  
+              <td><input type="number" class="form-control cantidadExcedente" value=""></td>
+              `;
+      } else {
+        row += `    
             <td><input type="number" class="form-control cantidadProductos" value="${item.cantidadProductos}"></td>
             <td><input type="number" class="form-control cantidadExcedente" value="${item.cantidadExcedente}"></td>
           </tr>
         `;
+      }
       tbody.insertAdjacentHTML("beforeend", row);
     });
   }
@@ -65,62 +77,67 @@ document.addEventListener("DOMContentLoaded",function () {
   });
 
   // Función para exportar los datos de la tabla a CSV
-const exportCSVButton = document.querySelector("#exportCSV");
-exportCSVButton.addEventListener("click", function () {
-  const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent(getTableCSV());
-  const link = document.createElement("a");
-  link.setAttribute("href", csvContent);
-  link.setAttribute("download", "tabla.csv");
-  link.click();
-});
-
-// Función para obtener los datos de la tabla en formato CSV
-function getTableCSV() {
-  const rows = [];
-  const headers = Array.from(document.querySelectorAll("#products_list th")).slice(1).map(th => th.textContent);
-  rows.push(headers.join(","));
-
-  const tableRows = document.querySelectorAll("#products_list tr");
-  tableRows.forEach(row => {
-    const rowData = Array.from(row.querySelectorAll("td")).slice(1).map(td => {
-      const cellText = td.textContent.trim();
-      // Si la celda contiene comas, rodearla con comillas dobles
-      return cellText.includes(",") ? `"${cellText}"` : cellText;
-    });
-    
-    // Check if rowData contains only whitespace
-    const isBlankRow = rowData.every(cell => cell.trim() === "");
-    
-    if (!isBlankRow) {
-      rows.push(rowData.join(","));
-    }
+  const exportCSVButton = document.querySelector("#exportCSV");
+  exportCSVButton.addEventListener("click", function () {
+    const csvContent =
+      "data:text/csv;charset=utf-8," + encodeURIComponent(getTableCSV());
+    const link = document.createElement("a");
+    link.setAttribute("href", csvContent);
+    link.setAttribute("download", "tabla.csv");
+    link.click();
   });
 
-  return rows.join("\n");
+  // Función para obtener los datos de la tabla en formato CSV
+  function getTableCSV() {
+    const rows = [];
+    const headers = Array.from(document.querySelectorAll("#products_list th"))
+      .slice(1)
+      .map((th) => th.textContent);
+    rows.push(headers.join(","));
 
-  // Agregar funcionalidad de paginación (requiere implementación adicional)
-  function setupPagination(totalPages, currentPage) {
-    const pagination = document.querySelector("#pagination");
-    pagination.innerHTML = "";
+    const tableRows = document.querySelectorAll("#products_list tr");
+    tableRows.forEach((row) => {
+      const rowData = Array.from(row.querySelectorAll("td"))
+        .slice(1)
+        .map((td) => {
+          const cellText = td.textContent.trim();
+          // Si la celda contiene comas, rodearla con comillas dobles
+          return cellText.includes(",") ? `"${cellText}"` : cellText;
+        });
 
-    for (let i = 1; i <= totalPages; i++) {
-      const li = document.createElement("li");
-      const link = document.createElement("a");
-      link.href = "#";
-      link.textContent = i;
-      li.appendChild(link);
-      if (i === currentPage) {
-        li.classList.add("active");
+      // Check if rowData contains only whitespace
+      const isBlankRow = rowData.every((cell) => cell.trim() === "");
+
+      if (!isBlankRow) {
+        rows.push(rowData.join(","));
       }
-      pagination.appendChild(li);
+    });
 
-      link.addEventListener("click", function () {
-        loadTableDataPaginated(jsonData, i); // Debes implementar esta función
-        setupPagination(totalPages, i);
-      });
+    return rows.join("\n");
+
+    // Agregar funcionalidad de paginación (requiere implementación adicional)
+    function setupPagination(totalPages, currentPage) {
+      const pagination = document.querySelector("#pagination");
+      pagination.innerHTML = "";
+
+      for (let i = 1; i <= totalPages; i++) {
+        const li = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = "#";
+        link.textContent = i;
+        li.appendChild(link);
+        if (i === currentPage) {
+          li.classList.add("active");
+        }
+        pagination.appendChild(li);
+
+        link.addEventListener("click", function () {
+          loadTableDataPaginated(jsonData, i); // Debes implementar esta función
+          setupPagination(totalPages, i);
+        });
+      }
     }
   }
-}
   // Agregar funcionalidad de búsqueda (requiere implementación adicional)
   const searchInput = document.querySelector("#searchInput");
   searchInput.addEventListener("input", function () {
@@ -135,47 +152,46 @@ function getTableCSV() {
     loadTableData(filteredData);
   });
 
- // Agregar funcionalidad de importar CSV usando Papaparse
-const importCSVButton = document.querySelector("#importCSV");
-importCSVButton.addEventListener("change", function (event) {
-  const file = event.target.files[0];
-  if (file) {
-    Papa.parse(file, {
-      complete: function (results) {
-        const importedData = results.data.filter(row => !isRowEmpty(row)); // Eliminar filas vacías
-        console.log(importedData);
-        populateTableWithImportedData(importedData);
-      },
-      header: true // Indicar que la primera fila contiene encabezados
-    });
-    
+  // Agregar funcionalidad de importar CSV usando Papaparse
+  const importCSVButton = document.querySelector("#importCSV");
+  importCSVButton.addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (file) {
+      Papa.parse(file, {
+        complete: function (results) {
+          const importedData = results.data.filter((row) => !isRowEmpty(row)); // Eliminar filas vacías
+          console.log(importedData);
+          populateTableWithImportedData(importedData);
+        },
+        header: true, // Indicar que la primera fila contiene encabezados
+      });
+    }
+  });
+  function isRowEmpty(row) {
+    return Object.values(row).every((value) => value.trim() === "");
   }
-});
-function isRowEmpty(row) {
-  return Object.values(row).every(value => value.trim() === "");
-}
 
-function populateTableWithImportedData(importedData) {
-  const tbody = document.querySelector("#products_list tbody");
-  tbody.innerHTML = ""; // Limpiar contenido anterior de la tabla
-  importedData.forEach((columns) => {
-    const row = `
+  function populateTableWithImportedData(importedData) {
+    const tbody = document.querySelector("#products_list tbody");
+    tbody.innerHTML = ""; // Limpiar contenido anterior de la tabla
+    importedData.forEach((columns) => {
+      const row = `
     <tr>
       <td><input type="checkbox" class="rowCheckbox"></td>
-      <td>${columns['ID']}</td>
-      <td><a href="#" onClick="productDetail(${columns['ID']})" data-toggle="modal" data-target="#modal-detail-product">${columns['Descripción']}</a></td>
-      <td>${columns['Marca']}</td>
-      <td>${columns['Categoría']}</td>
-      <td>${columns['Precio']}</td>
-      <td>${columns['Precio Mínimo']}</td>
-      <td>${columns['Existencia']}</td>
-      <td><input type="number" class="form-control cantidadProductos" value="${columns['Cantidad Productos']}"></td>
-      <td><input type="number" class="form-control cantidadExcedente" value="${columns['Cantidad Excedente']}"></td>
+      <td>${columns["ID"]}</td>
+      <td><a href="#" onClick="productDetail(${columns["ID"]})" data-toggle="modal" data-target="#modal-detail-product">${columns["Descripción"]}</a></td>
+      <td>${columns["Marca"]}</td>
+      <td>${columns["Categoría"]}</td>
+      <td>${columns["Precio"]}</td>
+      <td>${columns["Precio Mínimo"]}</td>
+      <td>${columns["Existencia"]}</td>
+      <td><input type="number" class="form-control cantidadProductos" value="${columns["Cantidad Productos"]}"></td>
+      <td><input type="number" class="form-control cantidadExcedente" value="${columns["Cantidad Excedente"]}"></td>
     </tr>
   `;
-    tbody.insertAdjacentHTML("beforeend", row);
-  });
-}
+      tbody.insertAdjacentHTML("beforeend", row);
+    });
+  }
 
   // Función para levantar la orden y obtener los valores como JSON
   const createOrderButton = document.querySelector("#createOrder");
@@ -195,23 +211,18 @@ function populateTableWithImportedData(importedData) {
         cantidadExcedente: cantidadExcedente,
       });
     });
-
     const orderJSON = JSON.stringify(orderData);
     productOrder(orderJSON);
-    console.log(orderJSON); // Aquí puedes enviar los datos al servidor o realizar otras acciones
   });
-}catch (error) {
+} catch (error) {
   console.log(error);
 }
-});
-
-
-
+//});
 
 /**
  * Author: Alfredo Segura Vara <pixxo2010@gmail.com>
  * Description: OBTIENE EL DETALLE DEL PRODUCTO Y LOS MUESTRA EN EL MODAL
- * @param {} id_product 
+ * @param {} id_product
  */
 
 function productDetail(id_product) {
@@ -236,25 +247,22 @@ function productDetail(id_product) {
     });
 }
 
+let imageThumbs = document.querySelectorAll(".product-image-thumb");
+imageThumbs.forEach(function (imageThumb) {
+  imageThumb.addEventListener("click", function () {
+    const imageElement = this.querySelector("img");
+    const productImage = document.querySelector(".product-image");
+    const activeThumb = document.querySelector(".product-image-thumb.active");
 
- 
-let imageThumbs = document.querySelectorAll('.product-image-thumb');
-imageThumbs.forEach(function(imageThumb) {
-  imageThumb.addEventListener('click', function() {
-    const imageElement = this.querySelector('img');
-    const productImage = document.querySelector('.product-image');
-    const activeThumb = document.querySelector('.product-image-thumb.active');
-
-    productImage.src = imageElement.getAttribute('src');
+    productImage.src = imageElement.getAttribute("src");
 
     if (activeThumb) {
-      activeThumb.classList.remove('active');
+      activeThumb.classList.remove("active");
     }
 
-    this.classList.add('active');
+    this.classList.add("active");
   });
 });
-
 
 function bodyModal(element) {
   body = `
@@ -315,17 +323,18 @@ function bodyModal(element) {
   return body;
 }
 
-async function productOrder(data){
-
-  const URL_ORDERS=URL_PROYECT+"app/api/api-orders.php";
-  await fetch(URL_ORDERS+'?type=order',{
-    method:'POST',    
+async function productOrder(data) {
+  const URL_ORDERS = URL_PROYECT + "app/api/api-orders.php";
+  await fetch(URL_ORDERS + "?type=order", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body:data
-  }).then(parseResponse).then((data)=>{
-    console.log(data);
+    body: data,
   })
-
+    .then(parseResponse)
+    .then((data) => {
+      updateTableData();
+      console.log(data);
+    });
 }

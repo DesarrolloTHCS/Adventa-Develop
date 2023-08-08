@@ -12,6 +12,7 @@ return array(
     'App\\Controllers\\DeleteController' => $baseDir . '/app/controllers/DeleteController.php',
     'App\\Controllers\\GetController' => $baseDir . '/app/controllers/GetController.php',
     'App\\Controllers\\Orders\\OrdersController' => $baseDir . '/app/controllers/orders/OrdersController.php',
+    'App\\Controllers\\Orders\\ProductsOrdersController' => $baseDir . '/app/controllers/orders/ProductsOrdersController.php',
     'App\\Controllers\\PostController' => $baseDir . '/app/controllers/PostController.php',
     'App\\Controllers\\PutController' => $baseDir . '/app/controllers/PutController.php',
     'App\\Controllers\\Sinube\\SinubeController' => $baseDir . '/app/controllers/sinube/SinubeController.php',
@@ -36,5 +37,6 @@ return array(
     'Views\\Layout\\Layout' => $baseDir . '/views/layout/layout.php',
     'Views\\Layout\\NavBar' => $baseDir . '/views/layout/NavBar.php',
     'Views\\Layout\\Scripts' => $baseDir . '/views/layout/Scripts.php',
+    'Views\\Orders\\ProductsDetails' => $baseDir . '/views/orders/OrdersDetails.php',
     'Views\\Products\\ProductsDetails' => $baseDir . '/views/products/PorductsDetails.php',
 );

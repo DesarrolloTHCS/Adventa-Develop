@@ -72,6 +72,7 @@ HTML;
               </thead>
               <tbody>
                 <?php
+                if (!empty($orders)){
                 foreach ($orders as $key => $order) {
                   $html .= <<<HTML
             <tr>
@@ -97,6 +98,13 @@ HTML;
             </tr>
 HTML;
                 }
+              }else{
+                $html .= <<<HTML
+                <tr>
+                <td colspan="10" class="text-center">No hay registros</td>
+                </tr>
+HTML;
+              }
                 echo $html;
                 ?>
                 <!-- Filas de la tabla serán agregadas dinámicamente aquí -->

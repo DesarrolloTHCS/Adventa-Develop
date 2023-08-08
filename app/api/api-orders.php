@@ -27,6 +27,7 @@ if($method=="POST"){
     switch ($type_order){
         case "order":
             $result=OrdersController::preOrder($data);
+            print_r($result);
             break;
 }
 
@@ -34,7 +35,7 @@ if($method=="POST"){
 
     switch ($type_order){
         case "order":
-            $result=OrdersController::getOrders();
+            $result=OrdersController::getOrdersByIdUser($data);
             break;
 }
 }

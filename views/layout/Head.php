@@ -38,7 +38,6 @@ class Head
     <link rel="apple-touch-icon" sizes="180x180" href="{$path}public/assets/images/images/logo-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="{$path}public/assets/images/logo-icon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="{$path}public/assets/images/logo-icon.png">
-    <link rel="manifest" href="{$path}public/assets/images/icons/site.html">
     <link rel="mask-icon" href="{$path}public/assets/images/icons/safari-pinned-tab.svg" color="#666666">
     <link rel="shortcut icon" href="{$path}public/assets/images/logo-icon.png">
     <meta name="apple-mobile-web-app-title" content="">
@@ -46,7 +45,6 @@ class Head
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="msapplication-config" content="{$path}public/assets/images/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="{$path}public/assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
    <!--Meta-->
 
   <!-- Google Font: Source Sans Pro -->

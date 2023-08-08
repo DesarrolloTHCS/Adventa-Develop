@@ -1,5 +1,5 @@
 <?php 
-namespace Views\Products;
+namespace Views\Orders;
 
 
 class ProductsDetails{

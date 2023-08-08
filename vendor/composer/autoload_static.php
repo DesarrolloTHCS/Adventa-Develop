@@ -95,6 +95,7 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
         'App\\Controllers\\DeleteController' => __DIR__ . '/../..' . '/app/controllers/DeleteController.php',
         'App\\Controllers\\GetController' => __DIR__ . '/../..' . '/app/controllers/GetController.php',
         'App\\Controllers\\Orders\\OrdersController' => __DIR__ . '/../..' . '/app/controllers/orders/OrdersController.php',
+        'App\\Controllers\\Orders\\ProductsOrdersController' => __DIR__ . '/../..' . '/app/controllers/orders/ProductsOrdersController.php',
         'App\\Controllers\\PostController' => __DIR__ . '/../..' . '/app/controllers/PostController.php',
         'App\\Controllers\\PutController' => __DIR__ . '/../..' . '/app/controllers/PutController.php',
         'App\\Controllers\\Sinube\\SinubeController' => __DIR__ . '/../..' . '/app/controllers/sinube/SinubeController.php',
@@ -119,6 +120,7 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
         'Views\\Layout\\Layout' => __DIR__ . '/../..' . '/views/layout/layout.php',
         'Views\\Layout\\NavBar' => __DIR__ . '/../..' . '/views/layout/NavBar.php',
         'Views\\Layout\\Scripts' => __DIR__ . '/../..' . '/views/layout/Scripts.php',
+        'Views\\Orders\\ProductsDetails' => __DIR__ . '/../..' . '/views/orders/OrdersDetails.php',
         'Views\\Products\\ProductsDetails' => __DIR__ . '/../..' . '/views/products/PorductsDetails.php',
     );
 

@@ -1,11 +1,18 @@
 <?php
 
+use App\Controllers\Catalogs\CatalogProductsController;
 use Views\Layout\Layout;
 use Views\Products\ProductsDetails;
 
 require_once '../../vendor/autoload.php';
 
 Layout::layoutHeader();
+
+$id_user = $_SESSION['id_user'];
+$products = CatalogProductsController::getProducts();
+$html = <<<HTML
+HTML;
+
 ?>
 <section class="content-header">
   <div class="container-fluid">
@@ -35,25 +42,25 @@ Layout::layoutHeader();
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-        <div class="row mb-3">
-              <div class="col-sm-2">
-                <button id="exportCSV" class="btn btn-primary">
-                  <i class="fa-solid fa-download"></i> Exportar CSV
-                </button>
-              </div>
-              <div class="col-sm-2">
-                <input type="file" class="custom-file-input" id="importCSV">
-                <label class="custom-file-label" for="customFile"><i class="fa-solid fa-upload"></i> Importar lista</label>
-              </div>
-              <div class="custom-file col-sm-2">
-                <button id="createOrder" class="btn btn-success">Levantar Orden</button>
-                <nav aria-label="Page navigation">
-                  <ul id="pagination" class="pagination">
-                    <!-- Elementos de paginación serán agregados dinámicamente aquí -->
-                  </ul>
-                </nav>
-              </div>
+          <div class="row mb-3">
+            <div class="col-sm-2">
+              <button id="exportCSV" class="btn btn-primary">
+                <i class="fa-solid fa-download"></i> Exportar CSV
+              </button>
             </div>
+            <div class="col-sm-2">
+              <input type="file" class="custom-file-input" id="importCSV">
+              <label class="custom-file-label" for="customFile"><i class="fa-solid fa-upload"></i> Importar lista</label>
+            </div>
+            <div class="custom-file col-sm-2">
+              <button id="createOrder" class="btn btn-success">Levantar Orden</button>
+              <nav aria-label="Page navigation">
+                <ul id="pagination" class="pagination">
+                  <!-- Elementos de paginación serán agregados dinámicamente aquí -->
+                </ul>
+              </nav>
+            </div>
+          </div>
           <div class="form-inline mb-2">
             <label for="recordsPerPage">Registros por página:</label>
             <select id="recordsPerPage" class="form-control ml-2">
@@ -83,10 +90,35 @@ Layout::layoutHeader();
                 </tr>
               </thead>
               <tbody>
-                <!-- Filas de la tabla serán agregadas dinámicamente aquí -->
+                <?php
+                if (!empty($products)) {
+                  foreach ($products as $key => $product) {
+                    $html .= <<<HTML
+            <tr>
+            <td><input type="checkbox" class="rowCheckbox"></td>
+            <td>{$product->id_product}</td>
+            <td><a href="#" onClick="productDetail({$product->id_product})">{$product->description_product}</a></td>
+            <td>{$product->brand_product}</td>
+            <td>{$product->category_product}</td>
+            <td>{$product->price_sinube}</td>
+            <td>{$product->price_minimum_sinube}</td>
+            <td>{$product->existence_product}</td>            
+            <td><input type="number" class="form-control cantidadProductos" value=""></td>
+            <td><input type="number" class="form-control cantidadExcedente" value=""></td>
+HTML;
+                  }
+                } else {
+                  $html .= <<<HTML
+                <tr>
+                <td colspan="10" class="text-center">No hay registros</td>
+                </tr>
+HTML;
+                }
+                echo $html;
+                ?>
               </tbody>
             </table>
-            
+
           </div>
           <!-- /.card -->
         </div>

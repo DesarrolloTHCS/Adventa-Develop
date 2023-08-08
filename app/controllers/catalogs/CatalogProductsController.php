@@ -5,9 +5,12 @@ use App\Controllers\Sinube\SinubeController;
 use App\Models\GetModel;
 use App\Models\PostModel;
 use App\Models\PutModel;
+use App\Traits\App;
 
 class CatalogProductsCOntroller{
 
+    use App;
+    
     static function getProducts(){
         $products=GetModel::getData("catalog_products","*",'id_product_sinube','ASC',null,null);
         return $products;
@@ -49,7 +52,7 @@ class CatalogProductsCOntroller{
                      "price_sinube"=>$product['precio'],
                      "price_minimum_sinube"=>$product['precioMinimo'],
                      'existence_product'=>$product['existencia'],
-                     "created_at"=> date("Y-m-d H:i:s"),
+                     "created_at"=> self::getCurrentTime(),
                 ];
                 $insert=PostModel::postData("catalog_products",$data);
                 return $insert;
@@ -70,12 +73,12 @@ class CatalogProductsCOntroller{
                      "price_sinube"=>$product['precio'],
                      "price_minimum_sinube"=>$product['precioMinimo'],
                      'existence_product'=>$product['existencia'],
-                     "updated_at"=> date("Y-m-d H:i:s"),
+                     "updated_at"=> self::getCurrentTime(),
                 ];
                 $update=PutModel::putData("catalog_products",$data,'id_product_sinube', $product['producto']);
                 return $update;
             }
         }
     }
+
 }
-?>
