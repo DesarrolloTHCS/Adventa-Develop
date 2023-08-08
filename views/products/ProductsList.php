@@ -102,10 +102,21 @@ HTML;
             <td>{$product->category_product}</td>
             <td>{$product->price_sinube}</td>
             <td>{$product->price_minimum_sinube}</td>
-            <td>{$product->existence_product}</td>            
-            <td><input type="number" class="form-control cantidadProductos" value=""></td>
-            <td><input type="number" class="form-control cantidadExcedente" value=""></td>
+            <td>{$product->existence_product}</td>
 HTML;
+                    if ($product->existence_product <= 0) {
+                      $html .= <<<HTML
+                      <td><input type="number" class="form-control cantidadProductos" disabled></td>
+                      <td><input type="number" class="form-control cantidadExcedente" value=""></td>
+HTML;
+                    } else {
+                      $html .= <<<HTML
+
+                      <td><input type="number" class="form-control cantidadProductos" value=""></td>
+                      <td><input type="number" class="form-control cantidadExcedente" value=""></td>
+HTML;
+                    };
+                    
                   }
                 } else {
                   $html .= <<<HTML

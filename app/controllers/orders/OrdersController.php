@@ -51,6 +51,7 @@ class OrdersController
         $total_productos = 0;
         $total_product_excedent = 0;
         $product_no_exist = [];
+        $product_exist = [];
         $info_total_order = new stdClass();
         $iva = self::FACTOR_TOTAL_IVA;
         foreach ($data as $key => $value) {
@@ -61,7 +62,7 @@ class OrdersController
 
             if ($cantidad_productos <= 0) {
                 $response = [
-                    "id_product"=> $id_product,
+                    "id_product" => $id_product,
                     "error" => "Debes agregar al menos un producto"
                 ];
                 return $response;
@@ -73,9 +74,9 @@ class OrdersController
                 continue;
             }
 
-            if($product[0]->existence_product < $cantidad_productos){
+            if ($product[0]->existence_product < $cantidad_productos) {
                 $response = [
-                    "id_product"=> $id_product,
+                    "id_product" => $id_product,
                     "error" => "No hay suficiente producto en existencia"
                 ];
                 return $response;
@@ -85,11 +86,13 @@ class OrdersController
             $total_productos += $cantidad_productos;
             $total_product_excedent += $cantidad_Excendete;
 
-            $update=[
+            $update = [
                 "existence_product" => $product[0]->existence_product - $cantidad_productos
             ];
-            $update_catalog_products = PutModel::putData("catalog_products",$update, "id_product", $id_product);
+            $update_catalog_products = PutModel::putData("catalog_products", $update, "id_product", $id_product);
             print_r($update_catalog_products);
+
+            $product_exist[] = $value;
         }
 
         $info_total_order->id_user = $_SESSION['id_user'];
@@ -98,7 +101,20 @@ class OrdersController
         $info_total_order->total_product_excedent = $total_product_excedent;
         $info_total_order->total_coust_out_vat = self::calculatePriceWithoutIVA($total_count, $iva);
         $info_total_order->vat = self::TASA_IVA;
-        print_r(self::storeOrder($info_total_order));
+        $order = self::storeOrder($info_total_order);
+        print_r($order['lastId']);
+
+        foreach($product_exist as $key=>$value){
+            $store = [
+                "id_order" => $order['lastId'],
+                "id_catalog_product" => $value->id,
+                "quantity_products_order" => $value->cantidadProductos,
+                "quantity_excedent_products_order" => $value->cantidadExcedente,
+                "created_at" => App::getCurrentTime(),
+            ];
+            $insert = PostModel::postData("products_order", $store);
+            print_r($insert);
+        }
     }
 
     /**
