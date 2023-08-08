@@ -35,18 +35,36 @@ Layout::layoutHeader();
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <div class="table-responsive">
-            <h1>Tabla con Funcionalidades</h1>
-            <div class="form-inline mb-2">
-              <label for="recordsPerPage">Registros por página:</label>
-              <select id="recordsPerPage" class="form-control ml-2">
-                <option value="10">10</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="all">Todos</option>
-              </select>
-              <input type="text" id="searchInput" class="form-control ml-auto" placeholder="Buscar...">
+        <div class="row mb-3">
+              <div class="col-sm-2">
+                <button id="exportCSV" class="btn btn-primary">
+                  <i class="fa-solid fa-download"></i> Exportar CSV
+                </button>
+              </div>
+              <div class="col-sm-2">
+                <input type="file" class="custom-file-input" id="importCSV">
+                <label class="custom-file-label" for="customFile"><i class="fa-solid fa-upload"></i> Importar lista</label>
+              </div>
+              <div class="custom-file col-sm-2">
+                <button id="createOrder" class="btn btn-success">Levantar Orden</button>
+                <nav aria-label="Page navigation">
+                  <ul id="pagination" class="pagination">
+                    <!-- Elementos de paginación serán agregados dinámicamente aquí -->
+                  </ul>
+                </nav>
+              </div>
             </div>
+          <div class="form-inline mb-2">
+            <label for="recordsPerPage">Registros por página:</label>
+            <select id="recordsPerPage" class="form-control ml-2">
+              <option value="10">10</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="all">Todos</option>
+            </select>
+            <input type="text" id="searchInput" class="form-control ml-auto" placeholder="Buscar...">
+          </div>
+          <div class="table-responsive">
             <table id="products_list" class="table table-striped">
               <thead>
                 <tr>
@@ -68,34 +86,19 @@ Layout::layoutHeader();
                 <!-- Filas de la tabla serán agregadas dinámicamente aquí -->
               </tbody>
             </table>
-            <button id="exportCSV" class="btn btn-primary">
-            <i class="fa-solid fa-download"></i> Exportar CSV</button>
-              <div class="custom-file col-sm-4">
-                <input type="file" class="custom-file-input" id="importCSV">
-                <label class="custom-file-label" for="customFile"><i class="fa-solid fa-upload"></i> Importar lista</label>
-              </div>
-              
-            <!-- <input name="" id="importCSV" class="btn btn-primary" type="FILE" value="Button"> -->
-            <!-- <button id="importCSV" class="btn btn-secondary">Importar CSV</button> -->
-            <button id="createOrder" class="btn btn-success">Levantar Orden</button>
-            <nav aria-label="Page navigation">
-              <ul id="pagination" class="pagination">
-                <!-- Elementos de paginación serán agregados dinámicamente aquí -->
-              </ul>
-            </nav>
+            
           </div>
+          <!-- /.card -->
         </div>
-        <!-- /.card -->
       </div>
     </div>
-  </div>
-  <!-- /.col-->
-  <div class="col-12">
-    <div class="mb-3">
-      <label for="" class="form-label">Observaciones</label>
-      <textarea class="summernote" name="obeservation" id="summernote"></textarea>
+    <!-- /.col-->
+    <div class="col-12">
+      <div class="mb-3">
+        <label for="" class="form-label">Observaciones</label>
+        <textarea class="summernote" name="obeservation" id="summernote"></textarea>
+      </div>
     </div>
-  </div>
   </div>
 </section>
 <!-- /.content -->

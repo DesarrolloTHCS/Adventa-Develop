@@ -28,5 +28,13 @@ if($method=="POST"){
         case "order":
             $result=OrdersController::preOrder($data);
             break;
-    }
+}
+
+}else if($method=="GET"){
+
+    switch ($type_order){
+        case "order":
+            $result=OrdersController::getOrders();
+            break;
+}
 }

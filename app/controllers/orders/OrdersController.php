@@ -15,6 +15,12 @@ class OrdersController
     use App;
     use Validate;
 
+    static function getOrdersByIdUser($id_user)
+    {
+        $id_user=$_SESSION['id_user'];
+        $orders = GetModel::getDataFilter("orders",'*','id_user',$id_user,'id_order','DESC',null,null);
+        return $orders;
+    }
     static function preOrder($data)
     {
         session_start();

@@ -71,7 +71,7 @@ class AsideBar
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link ">
+                <a href="{$path}views/orders/OrdersList" class="nav-link ">
                 <i class="fa-solid fa-bag-shopping"></i>
                   <p>Mis de pedidos</p>
                 </a>
