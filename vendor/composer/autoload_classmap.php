@@ -25,6 +25,7 @@ return array(
     'App\\Traits\\App' => $baseDir . '/app/traits/App.php',
     'App\\Traits\\Log' => $baseDir . '/app/traits/Log.php',
     'App\\Traits\\Responses' => $baseDir . '/app/traits/Responses.php',
+    'App\\Traits\\Sinube' => $baseDir . '/app/traits/Sinube.php',
     'App\\Traits\\UserData' => $baseDir . '/app/traits/UserData.php',
     'App\\Traits\\Validate' => $baseDir . '/app/traits/Validate.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',

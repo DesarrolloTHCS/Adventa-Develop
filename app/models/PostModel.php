@@ -33,7 +33,7 @@ class PostModel
       );
       return $response;
     }catch(PDOException $error){
-      return $error;
+      return $error->getMessage();
     }
   }
 

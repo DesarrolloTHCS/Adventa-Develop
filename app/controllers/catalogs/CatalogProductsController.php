@@ -28,14 +28,15 @@ class CatalogProductsCOntroller{
             foreach ($data_sinube as $data){
                 $validate=GetModel::getDataFilter("catalog_products","*","id_product_sinube",$data['producto'],null,null,null,null);
                 if(empty($validate)){
-                    $insert=self::storeProductsBySinube($data_sinube);
-                    return $insert;
+                    self::storeProductsBySinube($data_sinube);
                 }else{
-                    $update=self::updateProductsBySinube($data_sinube);
-                    return $update;
+                    self::updateProductsBySinube($data_sinube);
+                    
                 }
             }
+            return "datos actualizados";
         }
+        return null;
     }
 
     static function storeProductsBySinube($products){
@@ -52,10 +53,10 @@ class CatalogProductsCOntroller{
                      "price_sinube"=>$product['precio'],
                      "price_minimum_sinube"=>$product['precioMinimo'],
                      'existence_product'=>$product['existencia'],
-                     "created_at"=> self::getCurrentTime(),
+                     'unit_catalog_product'=>$product['unidad'],
+                     "created_at"=> self::getCurrentTime()
                 ];
-                $insert=PostModel::postData("catalog_products",$data);
-                return $insert;
+                PostModel::postData("catalog_products",$data);
             }
         }
     }
@@ -73,10 +74,10 @@ class CatalogProductsCOntroller{
                      "price_sinube"=>$product['precio'],
                      "price_minimum_sinube"=>$product['precioMinimo'],
                      'existence_product'=>$product['existencia'],
-                     "updated_at"=> self::getCurrentTime(),
+                     'unit_catalog_product'=>$product['unidad'],
+                     "updated_at"=> self::getCurrentTime()
                 ];
-                $update=PutModel::putData("catalog_products",$data,'id_product_sinube', $product['producto']);
-                return $update;
+               PutModel::putData("catalog_products",$data,'id_product_sinube', $product['producto']);
             }
         }
     }

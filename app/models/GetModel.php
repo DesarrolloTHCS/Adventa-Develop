@@ -176,7 +176,6 @@ class GetModel
           $InnerJoinText .= "INNER JOIN " . $value . " ON " . $relArray[0] . "." . $typeArray[$key]. " = " . $value . "." . $typeArray[$key] . " ";
         }
       }
-      
       if (count($linkToArray) > 1) {
         foreach ($linkToArray as $key => $value) {
           if ($key > 0) {

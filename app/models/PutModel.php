@@ -62,7 +62,7 @@ class PutModel
       );
       return $response;
     } catch (PDOException $error) {
-      return $error;
+      return null;
     }
   }
 }

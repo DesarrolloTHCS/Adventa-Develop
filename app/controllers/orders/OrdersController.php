@@ -8,6 +8,7 @@ use App\Models\PostModel;
 use App\Models\PutModel;
 use App\Traits\Validate;
 use App\Traits\App;
+use App\Traits\Sinube;
 use stdClass;
 
 class OrdersController
@@ -40,6 +41,8 @@ class OrdersController
      */
     static function preOrder($data)
     {
+        /* self::salesNote();
+        return; */
         if (empty($data)) {
             $response = [
                 "error" => "No se recibieron datos"
@@ -107,13 +110,15 @@ class OrdersController
         foreach($product_exist as $key=>$value){
             $store = [
                 "id_order" => $order['lastId'],
-                "id_catalog_product" => $value->id,
+                "id_product" => $value->id,
                 "quantity_products_order" => $value->cantidadProductos,
                 "quantity_excedent_products_order" => $value->cantidadExcedente,
                 "created_at" => App::getCurrentTime(),
             ];
             $insert = PostModel::postData("products_order", $store);
             print_r($insert);
+
+            
         }
     }
 
@@ -139,5 +144,13 @@ class OrdersController
         ];
         $insert = PostModel::postData("orders", $store);
         return $insert;
+    }
+
+
+    static function salesNote(){
+        $id_order=3;
+        $store="CAPITAL SAPI";
+
+        $note=SinubeController::createSalesNote($id_order,$store);
     }
 }

@@ -108,6 +108,7 @@ class ComposerStaticInit202127055f42e18129bb445014c835db
         'App\\Traits\\App' => __DIR__ . '/../..' . '/app/traits/App.php',
         'App\\Traits\\Log' => __DIR__ . '/../..' . '/app/traits/Log.php',
         'App\\Traits\\Responses' => __DIR__ . '/../..' . '/app/traits/Responses.php',
+        'App\\Traits\\Sinube' => __DIR__ . '/../..' . '/app/traits/Sinube.php',
         'App\\Traits\\UserData' => __DIR__ . '/../..' . '/app/traits/UserData.php',
         'App\\Traits\\Validate' => __DIR__ . '/../..' . '/app/traits/Validate.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
