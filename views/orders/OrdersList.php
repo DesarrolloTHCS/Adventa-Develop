@@ -60,7 +60,7 @@ HTML;
                     <input type="checkbox" id="selectAll">
                   </th>
                   <th>ID</th>
-                  <th>Nota_venta</th>
+                  <th>Folio</th>
                   <th>Cantidad_productos</th>
                   <th>Total</th>
                   <th>Total_sin_iva</th>
@@ -68,9 +68,10 @@ HTML;
                   <th>Estado</th>
                   <th>Fecha de alta</th>
                   <th>Fecha de actualización</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="text-center">
                 <?php
                 if (!empty($orders)){
                 foreach ($orders as $key => $order) {
@@ -78,12 +79,7 @@ HTML;
             <tr>
             <td><input type="checkbox" class="rowCheckbox"></td>
             <td>{$order->id_order}</td>
-            <td>
-HTML;              
-            
-            $order->id_nota_venta_sinube !="" ? $html .= "<span class='badge badge-success'>Vendido</span>" : $html .= "<span class='badge badge-warning'>Pendiente</span>";
-        $html .= <<<HTML
-            </td>
+            <td>{$order->folio_auto_facturacion}</td>
             <td>{$order->quantity_products_order}</td>
             <td>{$order->total_coust_order}</td>
             <td>{$order->total_coust_out_vat_order}</td>
@@ -95,6 +91,7 @@ HTML;
             </td>
             <td>{$order->created_at}</td>
             <td>{$order->updated_at}</td>
+            <td><a href="{$order->report_sale_note}" class="btn btn-block btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Nota de venta"><i class="fa-solid fa-file-pdf"></i></a></td>
             </tr>
 HTML;
                 }
@@ -123,12 +120,6 @@ HTML;
     </div>
   </div>
   <!-- /.col-->
-  <div class="col-12">
-    <div class="mb-3">
-      <label for="" class="form-label">Observaciones</label>
-      <textarea class="summernote" name="obeservation" id="summernote"></textarea>
-    </div>
-  </div>
   </div>
 </section>
 <!-- /.content -->

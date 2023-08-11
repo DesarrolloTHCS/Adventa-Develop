@@ -265,4 +265,18 @@ trait Validate
     }
 
   }
+
+  static function calculatePriceWithIVA($priceWithoutIVA, $iva) {
+    // Sanitizar el precio sin IVA
+    $priceWithoutIVA = trim($priceWithoutIVA); // Eliminar espacios al inicio y final
+    $priceWithoutIVA = htmlspecialchars($priceWithoutIVA, ENT_QUOTES, 'UTF-8'); // Convertir caracteres especiales en entidades HTML
+    
+    // Verificar si el precio sin IVA es un número
+    if (is_numeric($priceWithoutIVA)) {
+        $priceWithIVA = $priceWithoutIVA * (1 + ($iva / 100)); // Calcula el precio con IVA
+        return round($priceWithIVA, 2); // Redondear a 2 decimales y devolver
+    } else {
+        return 0; // Si no es un número, devolver 0
+    }
+}
 }

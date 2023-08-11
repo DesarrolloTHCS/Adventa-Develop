@@ -47,7 +47,7 @@ try {
             <td><a href="#" onClick="productDetail(${item.id_product})" data-toggle="modal" data-target="#modal-detail-product">${item.description_product}</a></td>
             <td>${item.brand_product}</td>
             <td>${item.category_product}</td>
-            <td>${item.price_sinube}</td>
+            <td>${item.price_sinube_with_vat}</td>
             <td>${item.price_minimum_sinube}</td>
             <td>${item.existence_product}</td>`;
 
@@ -212,6 +212,8 @@ try {
       });
     });
     const orderJSON = JSON.stringify(orderData);
+    var markupStr = $('#summernote').summernote('code');
+    console.log(markupStr);
     productOrder(orderJSON);
   });
 } catch (error) {

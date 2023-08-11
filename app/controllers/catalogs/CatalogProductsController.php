@@ -7,7 +7,8 @@ use App\Models\PostModel;
 use App\Models\PutModel;
 use App\Traits\App;
 
-class CatalogProductsCOntroller{
+
+class CatalogProductsController{
 
     use App;
     
@@ -51,6 +52,7 @@ class CatalogProductsCOntroller{
                      "brand_product"=>$product['marca'],
                      "category_product"=>$product['categoria'],
                      "price_sinube"=>$product['precio'],
+                     "price_sinube_with_vat"=>$product['precioConIVA'],
                      "price_minimum_sinube"=>$product['precioMinimo'],
                      'existence_product'=>$product['existencia'],
                      'unit_catalog_product'=>$product['unidad'],
@@ -72,6 +74,7 @@ class CatalogProductsCOntroller{
                      "brand_product"=>$product['marca'],
                      "category_product"=>$product['categoria'],
                      "price_sinube"=>$product['precio'],
+                     "price_sinube_with_vat"=>$product['precioConIva'],
                      "price_minimum_sinube"=>$product['precioMinimo'],
                      'existence_product'=>$product['existencia'],
                      'unit_catalog_product'=>$product['unidad'],

@@ -97,10 +97,10 @@ HTML;
             <tr>
             <td><input type="checkbox" class="rowCheckbox"></td>
             <td>{$product->id_product}</td>
-            <td><a href="#" onClick="productDetail({$product->id_product})">{$product->description_product}</a></td>
+            <td><a href="#" onClick="productDetail({$product->id_product})" data-toggle="modal" data-target="#modal-detail-product">{$product->description_product}</a></td>
             <td>{$product->brand_product}</td>
             <td>{$product->category_product}</td>
-            <td>{$product->price_sinube}</td>
+            <td>{$product->price_sinube_with_vat}</td>
             <td>{$product->price_minimum_sinube}</td>
             <td>{$product->existence_product}</td>
 HTML;
@@ -112,8 +112,8 @@ HTML;
                     } else {
                       $html .= <<<HTML
 
-                      <td><input type="number" class="form-control cantidadProductos" value=""></td>
-                      <td><input type="number" class="form-control cantidadExcedente" value=""></td>
+                      <td><input type="number" class="form-control cantidadProductos" value="" min=0 max="{$product->existence_product}"></td>
+                      <td><input type="number" class="form-control cantidadExcedente" value="" min=0></td>
 HTML;
                     };
                     
@@ -139,7 +139,7 @@ HTML;
     <div class="col-12">
       <div class="mb-3">
         <label for="" class="form-label">Observaciones</label>
-        <textarea class="summernote" name="obeservation" id="summernote"></textarea>
+        <textarea name="obeservation" id="observation" class="form-control"></textarea>
       </div>
     </div>
   </div>

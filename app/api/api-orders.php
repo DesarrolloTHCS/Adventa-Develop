@@ -26,7 +26,12 @@ $type_order=$_GET['type'];
 if($method=="POST"){
     switch ($type_order){
         case "order":
-            $result=OrdersController::preOrder($data);
+            $result=OrdersController::createOrder($data);
+            if($result["status"]=="success"){
+                Responses::response($result);
+            }else{
+                Responses::response($result);
+            }
             print_r($result);
             break;
 }
